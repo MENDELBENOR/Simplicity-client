@@ -10,6 +10,7 @@ import { AppExamples } from './features/AppExamples/AppExamples';
 
 function App() {
     const dispatcher = useAppDispatch();
+    console.log("Amit first check");
 
     useEffect(() => {
         dispatcher(getAsyncData());
