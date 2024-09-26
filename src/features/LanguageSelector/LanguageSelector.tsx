@@ -6,6 +6,7 @@ import './LanguageSelector.scss';
 
 export const LanguageSelector = () => {
     const dispatcher = useAppDispatch();
+
     const handleOnChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
         dispatcher(setLanguageCode(e.target.value as i18LanguageCode));
     };
