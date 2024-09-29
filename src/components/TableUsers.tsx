@@ -111,8 +111,6 @@ const initialData: IUser[] = [
   }
 ];
 
-
-
 const Table = () => {
   const { error, loading } = useUsers();
   const [data, setData] = useState<IUser[]>(initialData);

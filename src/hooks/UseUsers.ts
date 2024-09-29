@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import {  useEffect, useState } from 'react';
 import { IUser } from '../utils/types';
 
-const BASEURL = "https://localhost/api/";
+const BASEURL = "https://localhost/3001/api/";
 
 const useUsers = () => {
   const [users, setUsers] = useState<IUser[]>([]);
@@ -11,6 +11,7 @@ const useUsers = () => {
   const fetchUsers = async () => {
     setLoading(true);
     setError(null); 
+    
     try {
       const response = await fetch(`${BASEURL}users`);
       if (!response.ok) {
@@ -25,6 +26,10 @@ const useUsers = () => {
     }
   };
 
+  useEffect(()=>{
+    fetchUsers();
+  }, [])
+  
   return { users, loading, error, fetchUsers };
 };
 
