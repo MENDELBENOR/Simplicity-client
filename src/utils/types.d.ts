@@ -8,4 +8,11 @@ export interface IUser {
     workSpaceList:string[],
     icon: string,
 }
+
+export type UserUpdate = {
+    firstName: string,
+    lastName: string,
+    phone: string,
+}
+
   
