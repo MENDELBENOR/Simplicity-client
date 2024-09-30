@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import validator from 'validator';
+import axios from 'axios'
 
 const CreateUser: React.FC = () => {
 
@@ -7,7 +8,7 @@ const CreateUser: React.FC = () => {
         firstName: string,
         lastName: string,
         email: string,
-        phoneNumber: string,
+        phone: string,
         password: string,
     }
 
@@ -15,13 +16,16 @@ const CreateUser: React.FC = () => {
         firstName: '',
         lastName: '',
         email: '',
-        phoneNumber: '',
+        phone: '',
         password: '',
     });
 
     const [phoneError, setPhoneError] = useState<string>('');
 
-    const isValidPhoneNumber = (phoneNumber: string): boolean => {
+    const [errorCreateUser, setErrorCreateUser] = useState<string>('');
+    const [successCreateUser, setSuccessCreateUser] = useState<string>('');
+
+    const isValidPhone = (phoneNumber: string): boolean => {
         return validator.isMobilePhone(phoneNumber, 'any');
     }
 
@@ -33,28 +37,39 @@ const CreateUser: React.FC = () => {
         }))
     }
 
-    const handleSubmit = (event: React.FormEvent) => {
+    const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
 
         setPhoneError(' ');
+        setErrorCreateUser(' ');
+        setSuccessCreateUser(' ');
 
-        if (!isValidPhoneNumber(user.phoneNumber)) {
+        if (!isValidPhone(user.phone)) {
             setPhoneError("number is not valid")
             console.log("error");
 
             return;
         };
 
+        try {
 
-        console.log(user);
+            const response = await axios.post("http://localhost:5001/api/createUser", user);
 
-        setUser({
-            firstName: '',
-            lastName: '',
-            email: '',
-            phoneNumber: '',
-            password: '',
-        });
+            setSuccessCreateUser("User created successfully!");
+            console.log(response.data);
+
+            setUser({
+                firstName: '',
+                lastName: '',
+                email: '',
+                phone: '',
+                password: '',
+            });
+        } catch (errorCreateUser) {
+            setErrorCreateUser("Failed to create user. Please try again.");
+            console.error(errorCreateUser)
+        }
+
     };
 
     return (
@@ -108,11 +123,11 @@ const CreateUser: React.FC = () => {
                 </div>
 
                 <div className="mb-4">
-                    <label htmlFor="phoneNumber" className="block mb-1 text-sm font-medium text-gray-700 text-left">Phone Number</label>
+                    <label htmlFor="phone" className="block mb-1 text-sm font-medium text-gray-700 text-left">Phone Number</label>
                     <input
                         type="tel"
-                        id="phoneNumber"
-                        value={user.phoneNumber}
+                        id="phone"
+                        value={user.phone}
                         placeholder="Enter your phone number"
                         className="block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150"
                         onChange={handleChange}
@@ -136,6 +151,9 @@ const CreateUser: React.FC = () => {
                         minLength={8}
                     />
                 </div>
+
+                {errorCreateUser && <p className="text-red-500 text-xs italic">{errorCreateUser}</p>}
+                {successCreateUser && <p className="text-green-500 text-xs italic">{successCreateUser}</p>}
 
                 <button type="submit" className="w-full py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold rounded-md hover:from-blue-600 hover:to-purple-600 transition duration-200">Submit</button>
             </form>
