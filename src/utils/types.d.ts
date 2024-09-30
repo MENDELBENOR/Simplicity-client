@@ -13,6 +13,7 @@ export type UserUpdate = {
     firstName: string,
     lastName: string,
     phone: string,
+    _id: strung,
 }
 
   
