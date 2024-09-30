@@ -19,9 +19,9 @@ const CreateUser: React.FC = () => {
         password: '',
     });
 
-    const [error, setError] = useState<string>('');
+    const [phoneError, setPhoneError] = useState<string>('');
 
-    const validPhoneNumber = (phoneNumber: string): boolean => {
+    const isValidPhoneNumber = (phoneNumber: string): boolean => {
         return validator.isMobilePhone(phoneNumber, 'any');
     }
 
@@ -35,15 +35,17 @@ const CreateUser: React.FC = () => {
 
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
-        
-        setError(' ');
-        
-        if (!validPhoneNumber(user.phoneNumber)) {
-            setError("number is not valid")
+
+        setPhoneError(' ');
+
+        if (!isValidPhoneNumber(user.phoneNumber)) {
+            setPhoneError("number is not valid")
             console.log("error");
-            
+
             return;
         };
+
+
         console.log(user);
 
         setUser({
@@ -65,6 +67,8 @@ const CreateUser: React.FC = () => {
                     <input
                         type="text"
                         id="firstName"
+                        pattern="^[\p{L}\s]+$"
+                        title="first name must contain only letters from any language"
                         value={user.firstName}
                         placeholder="Enter your first name"
                         className="block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150"
@@ -79,6 +83,8 @@ const CreateUser: React.FC = () => {
                     <input
                         type="text"
                         id="lastName"
+                        pattern="^[\p{L}\s]+$"
+                        title="last name must contain only letters from any language"
                         value={user.lastName}
                         placeholder="Enter your last name"
                         className="block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150"
@@ -112,7 +118,7 @@ const CreateUser: React.FC = () => {
                         onChange={handleChange}
                         required
                     />
-                    {error && <p className="text-red-500 text-xs italic">{error}</p>}
+                    {phoneError && <p className="text-red-500 text-xs italic">{phoneError}</p>}
                 </div>
 
                 <div className="mb-5">
@@ -120,6 +126,8 @@ const CreateUser: React.FC = () => {
                     <input
                         type="password"
                         id="password"
+                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                        title="Password must contain at least 8 characters, with at least one uppercase letter, one lowercase letter, and one number"
                         value={user.password}
                         placeholder="Enter password"
                         className="block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150"
