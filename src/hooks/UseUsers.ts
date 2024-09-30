@@ -1,37 +1,18 @@
-import {  useEffect, useState } from 'react';
 import { IUser } from '../utils/types';
 
-const BASEURL = "https://localhost/3001/api/";
+const BASEURL = "http://localhost:3001/api/";
 
-const useUsers = () => {
-  const [users, setUsers] = useState<IUser[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const fetchUsers = async () => {
-    setLoading(true);
-    setError(null); 
-    
+export const getUsers = async (setUsers: React.Dispatch<React.SetStateAction<IUser[]>>) => {
     try {
-      const response = await fetch(`${BASEURL}users`);
+      const response = await fetch(`${BASEURL}getAllUsers`);
       if (!response.ok) {
         throw new Error('Failed to fetch users');
       }
       const data = await response.json();
       setUsers(data);
     } catch (err) {
-      setError((err as Error).message);
-    } finally {
-      setLoading(false);
+      console.log(err);
+      
     }
-  };
-
-  useEffect(()=>{
-    fetchUsers();
-  }, [])
-  
-  return { users, loading, error, fetchUsers };
 };
-
-export default useUsers;
 
