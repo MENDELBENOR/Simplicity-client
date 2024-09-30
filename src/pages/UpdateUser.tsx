@@ -49,7 +49,7 @@ const UpdateUser: React.FC = () => {
           label="First Name"
           type="text"
           value={user.firstName}
-          placeholder="Enter two letters..."
+          placeholder="Firs name"
           isValid={validFirstName}
           onChange={handleChange}
         />
@@ -59,7 +59,7 @@ const UpdateUser: React.FC = () => {
           label="Last Name"
           type="text"
           value={user.lastName}
-          placeholder="Enter two letters..."
+          placeholder="Last name"
           isValid={validLastName}
           onChange={handleChange}
         />

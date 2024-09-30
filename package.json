@@ -10,8 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/validator": "^13.12.2",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "validator": "^13.12.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
