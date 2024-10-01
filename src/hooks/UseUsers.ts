@@ -1,32 +1,25 @@
-import { useState } from 'react';
-import { IUser } from '../utils/types';
+import axios from 'axios';
+import { IUser,UserUpdate} from '../utils/types';
 
-const BASEURL = "https://localhost/api/";
+const BASEURL = "http://localhost:3001/api/";
 
-const useUsers = () => {
-  const [users, setUsers] = useState<IUser[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const fetchUsers = async () => {
-    setLoading(true);
-    setError(null); 
-    try {
-      const response = await fetch(`${BASEURL}users`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch users');
-      }
-      const data = await response.json();
-      setUsers(data);
-    } catch (err) {
-      setError((err as Error).message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  return { users, loading, error, fetchUsers };
+export const getUsers = async (setUsers: React.Dispatch<React.SetStateAction<IUser[]>>) => {
+  try {
+    const response = await axios.get(`${BASEURL}getAllUsers`);
+    setUsers(response.data);
+  } catch (err) {
+    console.log('Failed to fetch users', err);
+  }
 };
 
-export default useUsers;
+export const updateUser = async (user: UserUpdate) => {
+  try {
+    const response = await axios.patch(`${BASEURL}updateUser`, user);
+    console.log(response.data);
+    
+  } catch (err) {
+    console.log('Failed to fetch users', err);
+  }
+};
+
 
