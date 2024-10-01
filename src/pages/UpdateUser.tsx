@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { IUser, UserUpdate } from '../utils/types';
 import { validFirstName, validLastName, validPhone } from '../utils/helper';
 import InputField from '../components/InputField';  // Import the new InputField component
+import { updateUser } from '../hooks/UseUsers';
 
 const UpdateUser: React.FC = () => {
   const userTest: IUser = {
@@ -19,6 +20,7 @@ const UpdateUser: React.FC = () => {
     firstName: userTest.firstName,
     lastName: userTest.lastName,
     phone: userTest.phone,
+    _id: userTest._id
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,6 +39,7 @@ const UpdateUser: React.FC = () => {
     
 
     // function to sand update user
+    updateUser(user)
   };
 
   return (
@@ -49,7 +52,7 @@ const UpdateUser: React.FC = () => {
           label="First Name"
           type="text"
           value={user.firstName}
-          placeholder="Enter two letters..."
+          placeholder="Firs name"
           isValid={validFirstName}
           onChange={handleChange}
         />
@@ -59,7 +62,7 @@ const UpdateUser: React.FC = () => {
           label="Last Name"
           type="text"
           value={user.lastName}
-          placeholder="Enter two letters..."
+          placeholder="Last name"
           isValid={validLastName}
           onChange={handleChange}
         />

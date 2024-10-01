@@ -1,3 +1,5 @@
+import validator from 'validator';
+
 export const validFirstName = (firstName: string): boolean => {
     return firstName.length > 1;
 }
@@ -15,11 +17,6 @@ export const validPassword = (password: string): boolean => {
 }
 
 export const validPhone = (phone: string): boolean => {
-    if (phone.length !== 10) return false;
-
-    // Check if the phone number contains only digits
-    const digitsOnlyRegex = /^[0-9]+$/;
-
-    return digitsOnlyRegex.test(phone);
+   return validator.isMobilePhone(phone, 'any');
 }
 
