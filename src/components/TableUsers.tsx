@@ -9,13 +9,14 @@ type Sort = {
 };
 
 const Table = () => {
+
   const [users, setUsers] = useState<IUser[]>([]);
   const [sortConfig, setSortConfig] = useState<Sort>({
     key: null,
     direction: "asc",
   });
 
-  useEffect(()=>{
+  useEffect(() => {
     getUsers(setUsers)
   }, [])
 
