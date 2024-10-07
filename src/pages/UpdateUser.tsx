@@ -4,23 +4,17 @@ import { validFirstName, validLastName, validPhone } from '../utils/helper';
 import InputField from '../components/InputField';  // Import the new InputField component
 import { updateUser } from '../hooks/UseUsers';
 
-const UpdateUser: React.FC = () => {
-  const userTest: IUser = {
-    _id: "1",
-    email: "shmuel@gmail.com",
-    firstName: "shmuel",
-    lastName: "mori",
-    icon: "",
-    password: "12345",
-    phone: "0506538466",
-    workSpaceList: [],
-  };
+type Prop = {
+  setPopUpdateUser: (value: React.SetStateAction<boolean>) => void;
+  data: IUser;
+}
+const UpdateUser = ({ setPopUpdateUser, data }: Prop) => {
 
   const [user, setUser] = useState<UserUpdate>({
-    firstName: userTest.firstName,
-    lastName: userTest.lastName,
-    phone: userTest.phone,
-    _id: userTest._id
+    firstName: data.firstName,
+    lastName: data.lastName,
+    phone: data.phone,
+    _id: data._id
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,16 +29,30 @@ const UpdateUser: React.FC = () => {
     event.preventDefault();
     if (!validFirstName(user.firstName) || !validLastName(user.lastName) || !validPhone(user.phone)) return;
 
-    console.log(user);
-    
+    setPopUpdateUser(false)
+
 
     // function to sand update user
     updateUser(user)
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md border border-gray-300">
+    <div className="flex items-center justify-center min-h-screen w-full backdrop-blur-sm bg-transparent p-4 absolute top-1/2 left-1/2 transform -translate-x-[50%] -translate-y-[50%]">
+      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md border border-gray-300 relative">
+        <div
+          className='absolute top-0 right-0 m-2 p-1 rounded-full bg-red-700 text-white cursor-pointer'
+          onClick={() => { setPopUpdateUser(false) }}
+        >       <svg
+          className="w-6 h-6"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+
+        </div>
         <h1 className="text-2xl font-semibold text-center text-gray-800 mb-5">Update User</h1>
 
         <InputField

@@ -8,6 +8,7 @@ export const getUsers = async (setUsers: React.Dispatch<React.SetStateAction<IUs
     const response = await axios.get(`${BASEURL}getAllUsers`);
     setUsers(response.data.data);
   } catch (err) {
+    setUsers([]);
     console.log('Failed to fetch users', err);
   }
 };
