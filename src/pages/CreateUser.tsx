@@ -52,7 +52,7 @@ const CreateUser: React.FC = () => {
         }
 
         try {
-            const response = await axios.post("http://localhost:5001/api/createUser", user);
+            const response = await axios.post("http://localhost:3001/api/createUser", user);
             setSuccessCreateUser("User created successfully!");
             console.log(response.data);
 
@@ -81,7 +81,7 @@ const CreateUser: React.FC = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
+        <div>
             <button
                 onClick={() => setIsOpen(true)}
                 className="px-4 py-2 bg-blue-500 text-white rounded-md"

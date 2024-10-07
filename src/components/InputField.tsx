@@ -11,7 +11,7 @@ interface InputFieldProps {
 const InputField: React.FC<InputFieldProps> = ({ id, label, type, value, placeholder, isValid, onChange }) => {
 
   return (
-    <div className="mb-4">
+    <div className="">
       <label htmlFor={id} className="block mb-1 text-sm font-medium text-gray-700 text-left">
         {label}
       </label>
