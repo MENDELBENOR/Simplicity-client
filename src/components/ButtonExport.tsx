@@ -21,10 +21,10 @@ const ButtonExport: React.FC = () => {
     } catch (error) {
       console.error('Error exporting data:', error);
     }
-
   };
+
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center mt-4">
       <button
         onClick={handleExport}
         className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
