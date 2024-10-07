@@ -11,7 +11,7 @@ const Layout: React.FC = () => {
   }
 
   return (
-    <div className={`flex flex-col transition-transform duration-300 ${isAsideOpen ? `mr-[150px]` : `mr-0`}`} >
+    <div className={`flex flex-col transition-transform duration-300  ${isAsideOpen ? `mr-[150px] ` : `mr-0`}`} >
       <Header toggleAside={toggleAside} isAsideOpen={isAsideOpen} />
 
       <Footer isAsideOpen={isAsideOpen} />
