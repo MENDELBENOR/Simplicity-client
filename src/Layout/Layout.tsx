@@ -5,22 +5,29 @@ import { Outlet } from 'react-router-dom';
 import Side from "./Side";
 
 const Layout: React.FC = () => {
-  const [isAsideOpen, setAsideOpen] = useState<boolean>(false);
+  const [isAsideOpen, setAsideOpen] = useState<boolean>(true);
 
   const toggleAside = () => {
     setAsideOpen(!isAsideOpen)
   }
 
   return (
-    <div className={`flex flex-col transition-transform duration-300  ${isAsideOpen ? `mr-[150px] ` : `mr-0`}`} >
+    <div className="min-h-screen flex flex-col">
+      {/* Header */}
       <Header toggleAside={toggleAside} isAsideOpen={isAsideOpen} />
 
-      <Footer isAsideOpen={isAsideOpen} />
-      <Side isOpen={isAsideOpen} />
+      {/* תוכן מרכזי */}
+      <main className="flex-grow p-4 transition-transform duration-300">
+        <Outlet />
+      </main>
 
-      {/* allow to the routers to render */}
-      <Outlet />
+      {/* Footer */}
+      <Footer isAsideOpen={isAsideOpen} />
+
+      {/* Side bar */}
+      <Side isOpen={isAsideOpen} />
     </div>
-  )
+  );
 }
+
 export default Layout;
