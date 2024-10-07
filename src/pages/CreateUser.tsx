@@ -197,7 +197,7 @@ const CreateUser: React.FC = () => {
                     </form>
                 </div>
             )}
-            n        </div>
+        </div>
     );
 };
 
