@@ -1,6 +1,7 @@
 import Header from "./Header";
 import Footer from "./Footer";
 import { useState } from "react";
+import { Outlet } from 'react-router-dom';
 import Side from "./Side";
 
 const Layout: React.FC = () => {
@@ -16,6 +17,9 @@ const Layout: React.FC = () => {
 
       <Footer isAsideOpen={isAsideOpen} />
       <Side isOpen={isAsideOpen} />
+
+      {/* allow to the routers to render */}
+      <Outlet />
     </div>
   )
 }
