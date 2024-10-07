@@ -40,33 +40,33 @@ const Table = ({ setUsers, users }: Prop) => {
     <table className="min-w-[400px] w-[80%] text-center overflow-x-auto border-separate border-spacing-y-2">
       <thead>
         <tr className="bg-white">
-          <th className="p-3 cursor-pointer">
+          <th className="p-2 cursor-pointer">
             Icon
           </th>
           <th
-            className="p-3 cursor-pointer border-l-2"
+            className="p-2 cursor-pointer border-l-2"
           >
             Edit
           </th>
           <th
             onClick={() => sortData("firstName")}
-            className="p-3 cursor-pointer border-l-2"
+            className="p-2 cursor-pointer border-l-2"
           >
             First name
           </th>
           <th
             onClick={() => sortData("lastName")}
-            className="p-3 cursor-pointer border-l-2"
+            className="p-2 cursor-pointer border-l-2"
           >
             Last name
           </th>
           <th
             onClick={() => sortData("email")}
-            className="p-3 cursor-pointer border-l-2"
+            className="p-2 cursor-pointer border-l-2"
           >
             Email
           </th>
-          <th className="p-3 cursor-pointer border-l-2">
+          <th className="p-2 cursor-pointer border-l-2">
             Phone
           </th>
         </tr>
@@ -82,7 +82,7 @@ const Table = ({ setUsers, users }: Prop) => {
                 {user.icon ? <img className="w-10 h-10 rounded-full object-cover" src={user.icon} alt="" /> : <div className="w-10 h-10 rounded-full flex justify-center items-center object-cover bg-gray-200">👤</div>}
               </div>
             </td>
-            <td className="p-3 text-center">
+            <td className="p-2 text-center">
               <div className="flex flex-row items-center justify-center">
                 <div className="rounded-full flex justify-center items-center object-cover hover:bg-gray-100">
                   <LiaEdit
@@ -96,10 +96,10 @@ const Table = ({ setUsers, users }: Prop) => {
                 </div>
               </div>
             </td>
-            <td className="p-3">{user.firstName}</td>
-            <td className="p-3">{user.lastName}</td>
-            <td className="p-3">{user.email}</td>
-            <td className="p-3">{user.phone}</td>
+            <td className="p-2">{user.firstName}</td>
+            <td className="p-2">{user.lastName}</td>
+            <td className="p-2">{user.email}</td>
+            <td className="p-2">{user.phone}</td>
           </tr>
         ))}
       </tbody>

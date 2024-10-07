@@ -17,7 +17,7 @@ const Layout: React.FC = () => {
       <Header toggleAside={toggleAside} isAsideOpen={isAsideOpen} />
 
       {/* תוכן מרכזי */}
-      <main className="flex-grow p-4 transition-transform duration-300">
+      <main className="flex-grow transition-transform duration-300">
         <Outlet />
       </main>
 
