@@ -35,9 +35,9 @@ const Side: React.FC<SideProps> = ({ isOpen }) => {
       {/* כפתור התנתקות בתחתית */}
       <div className='flex flex-col items-center'>
         <h2 className='mb-4'>MSbit</h2>
-        <NavLink to="/logout" className="text-xl hover:text-red-400 transition-colors duration-200">
+        <button  className="text-xl hover:text-red-400 transition-colors duration-200">
           <TbLogout />
-        </NavLink>
+        </button>
       </div>
     </aside>
   );
