@@ -13,17 +13,20 @@ const Side: React.FC<SideProps> = ({ isOpen }) => {
       style={{ zIndex: 1000 }}
     >
       {/* לוגו */}
-      <div className='flex justify-center items-center mb-8'>
-        {/* ניתן להוסיף כאן לוגו במידת הצורך */}
+      <div className='relative flex justify-center items-center mb-8 mt-1'>
+        <div className='absolute text-black text-sm top-[33px] font-bold'>
+          Simplicity
+        </div>
+        <img src="../../public/images/M.png" alt="Image" className='w-28' />
       </div>
 
       {/* קישורים במרכז */}
       <div className='flex flex-col items-center space-y-4'>
-        <NavLink 
+        <NavLink
           to="/users"
-          className={({ isActive }) => 
-            isActive 
-              ? 'text-green-400 border-b-2 border-green-400' 
+          className={({ isActive }) =>
+            isActive
+              ? 'text-green-400 border-b-2 border-green-400'
               : 'hover:text-green-400 hover:border-b-2 hover:border-green-400 transition-colors duration-200'
           }
         >
