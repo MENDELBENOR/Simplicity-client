@@ -13,8 +13,11 @@ const Side: React.FC<SideProps> = ({ isOpen }) => {
       style={{ zIndex: 1000 }}
     >
       {/* לוגו */}
-      <div className='flex justify-center items-center mb-8'>
-        {/* ניתן להוסיף כאן לוגו במידת הצורך */}
+      <div className='relative flex justify-center items-center mb-8 mt-1'>
+        <div className='absolute text-black text-sm top-[33px] font-bold'>
+          Simplicity
+        </div>
+        <img src="../../public/images/M.png" alt="Image" className='w-28' />
       </div>
 
       {/* קישורים במרכז */}
