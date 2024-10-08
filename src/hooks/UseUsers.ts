@@ -22,4 +22,14 @@ export const updateUser = async (user: UserUpdate) => {
   }
 };
 
+export const searchUser = async (text: string, setUsers: React.Dispatch<React.SetStateAction<IUser[]>>) => {
+  try {
+    const response = await axios.get(`${BASEURL}searchUser/${text}`,);
+    setUsers(response.data.data);
+  } catch (err) {
+    console.log('Failed to search for user', err);
+  }
+}
+
+
 
