@@ -19,14 +19,12 @@ const Side: React.FC<SideProps> = ({ isOpen }) => {
 
       {/* קישורים במרכז */}
       <div className='flex flex-col items-center space-y-4'>
-        <NavLink 
+        <NavLink
           to="/users"
-          className={({ isActive }) => 
-            isActive 
-              ? 'text-green-400 border-b-2 border-green-400' 
-              : 'hover:text-green-400 hover:border-b-2 hover:border-green-400 transition-colors duration-200'
-          }
-        >
+          className={({ isActive }) =>
+            isActive
+              ? 'text-green-400 border-b-2 border-green-400'
+              : 'hover:text-green-400 hover:border-b-2 hover:border-green-400 transition-colors duration-200'}>
           Users
         </NavLink>
       </div>
