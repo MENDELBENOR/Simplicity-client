@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { IUser, UserUpdate, Credentials } from '../utils/types';
+import { IUser, UserUpdate, Credentials, UserSignUp } from '../utils/types';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -42,7 +42,7 @@ export default function UseUsers() {
 
   const loginByPassword = async (data: Credentials) => {
     try {
-      const response = await axios.post(`${BASEURL}login/`, data);
+      const response = await axios.post(`${BASEURL}login`, data);
       console.log(response);
       navigate('/users');
     } catch (err) {
@@ -52,7 +52,17 @@ export default function UseUsers() {
 
   const loginWithGoogle = async (email: string) => {
     try {
-      const response = await axios.post(`${BASEURL}loginWithGoogle/`, { email });
+      const response = await axios.post(`${BASEURL}loginWithGoogle`, { email });
+      console.log(response);
+      navigate('/users');
+    } catch (err) {
+      console.log('Failed to search for user', err);
+    }
+  }
+
+  const createUser = async (user: UserSignUp) => {
+    try {
+      const response = await axios.post(`${BASEURL}createUser`, user);
       console.log(response);
       navigate('/users');
     } catch (err) {
@@ -61,7 +71,7 @@ export default function UseUsers() {
   }
 
 
-  return { updateUser, loginByPassword, searchUser, getUsers, loginWithGoogle, loading, error }
+  return { updateUser, loginByPassword, searchUser, getUsers, loginWithGoogle, createUser, loading, error }
 }
 
 

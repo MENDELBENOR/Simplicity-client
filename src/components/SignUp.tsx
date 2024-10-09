@@ -1,11 +1,13 @@
 import { Lock, Mail, Eye, EyeOff, User, Phone } from 'lucide-react';
 import { useState } from 'react';
+import UseUsers from '../hooks/UseUsers';
 
 type Prop = {
     handleSwitch: () => void
 }
 
 export default function SignUp({ handleSwitch }: Prop) {
+    const { createUser } = UseUsers();
     const [showPassword, setShowPassword] = useState(false);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -15,9 +17,8 @@ export default function SignUp({ handleSwitch }: Prop) {
 
     const handleSignUp = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log('Sign up attempt with:', { firstName, lastName, email, phone, password });
-        // Here you would typically call an API to register the user
-        // For example: registerUser({ firstName, lastName, email, phone, password })
+        createUser({ firstName, lastName, email, phone, password });
+
     };
 
     return (
