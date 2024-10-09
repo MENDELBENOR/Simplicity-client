@@ -25,7 +25,6 @@ export default function Login({ handleSwitch }: Prop) {
             });
 
             const userData = await userInfo.json();
-            console.log("User Data:", userData.email);
             if (userData.email_verified)
                 loginWithGoogle(userData.email);
         },

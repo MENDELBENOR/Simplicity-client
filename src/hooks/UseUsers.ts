@@ -2,7 +2,9 @@ import axios from 'axios';
 import { IUser, UserUpdate, Credentials, UserSignUp } from '../utils/types';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-
+import { login } from '../redux/slices/userSlice';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../redux/store';
 const BASEURL = "http://localhost:3001/api/";
 
 
@@ -10,7 +12,7 @@ export default function UseUsers() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
-
+  const dispatch: AppDispatch = useDispatch();
 
   const getUsers = async (setUsers: React.Dispatch<React.SetStateAction<IUser[]>>) => {
     try {
@@ -57,7 +59,7 @@ export default function UseUsers() {
       const response = await axios.post(`${BASEURL}loginWithGoogle`, { email }, {
         withCredentials: true,
       });
-      console.log(response);
+      dispatch(login(response.data.data));
       navigate('/users');
     } catch (err) {
       console.log('Failed to search for user', err);
