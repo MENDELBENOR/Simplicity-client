@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import { getUsers, searchUser } from '../hooks/UseUsers';
 import { IUser } from '../utils/types';
-import InputField from './InputField';
 
 type Props = {
     setUsers: React.Dispatch<React.SetStateAction<IUser[]>>;
@@ -8,21 +7,21 @@ type Props = {
 
 export default function Search({ setUsers }: Props) {
 
-    const [search, setSearch] = useState<string>('');
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearch(e.target.value);
-
-        // function to search for user
+        const text = e.target.value;
+        if (text.length === 0)
+            getUsers(setUsers);
+        else
+            searchUser(text, setUsers);
     }
 
     return (
-        <InputField
-            id="search-user"
-            label=''
-            type='text'
-            isValid={(text: string) => text.trim().length < 30}
-            value={search} onChange={handleChange}
-            placeholder='search...' />
+        <input
+            type="text"
+            placeholder="Search"
+            className="block w-full p-2 border border-gray-300 rounded-md focus:outline-none ring-2 focus:ring-blue-500 transition duration-150"
+            onChange={handleChange}
+            required
+        />
     )
 }

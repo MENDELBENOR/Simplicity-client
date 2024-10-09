@@ -97,7 +97,7 @@ const CreateUser: React.FC = () => {
                         <button
                             type="button"
                             onClick={() => setIsOpen(false)}
-                            className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 transition duration-200"
+                            className="absolute top-2 right-2  rounded-full bg-red-700 text-white cursor-pointer transition duration-200"
                         >
                             <svg
                                 className="w-6 h-6"
