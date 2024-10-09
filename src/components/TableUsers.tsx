@@ -3,6 +3,7 @@ import { IUser } from "../utils/types";
 import { LiaEdit } from "react-icons/lia";
 import { RiDeleteBin7Line } from "react-icons/ri";
 import UpdateUser from "../pages/UpdateUser";
+import DeleteUser from "./DeleteUser";
 
 type Sort = {
   key: keyof IUser | null;
@@ -16,6 +17,7 @@ type Prop = {
 
 const Table = ({ setUsers, users }: Prop) => {
   const [popUpdateUser, setPopUpdateUser] = useState<boolean>(false);
+  const [popDeleteUser, setPopDeleteUser] = useState<boolean>(false);
   const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
   const [sortConfig, setSortConfig] = useState<Sort>({
     key: null,
@@ -102,7 +104,12 @@ const Table = ({ setUsers, users }: Prop) => {
                     />
                   </div>
                   <div className="rounded-full flex justify-center items-center object-cover hover:bg-gray-100">
-                    <RiDeleteBin7Line className="m-2 hover:bg-gray-200" />
+                    <RiDeleteBin7Line
+                      onClick={() => {
+                        setSelectedUser(user);
+                        setPopDeleteUser(true);
+                      }}
+                      className="m-2 hover:bg-gray-200" />
                   </div>
                 </div>
               </td>
@@ -115,6 +122,13 @@ const Table = ({ setUsers, users }: Prop) => {
       {popUpdateUser && selectedUser && (
         <UpdateUser
           setPopUpdateUser={setPopUpdateUser}
+          data={selectedUser}
+        />
+      )}
+
+      {popDeleteUser && selectedUser && (
+        <DeleteUser
+          setPopDeleteUser={setPopDeleteUser}
           data={selectedUser}
         />
       )}

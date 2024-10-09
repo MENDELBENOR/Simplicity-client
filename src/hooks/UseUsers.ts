@@ -66,18 +66,24 @@ export default function UseUsers() {
 
   const createUser = async (user: UserSignUp) => {
     try {
-      const response = await axios.post(`${BASEURL}createUser`, user, {
-        withCredentials: true,
-      });
+      const response = await axios.post(`${BASEURL}createUser`, user);
       console.log(response);
-      navigate('/users');
+    } catch (err) {
+      console.log('Failed to search for user', err);
+    }
+  }
+
+  const deleteUser = async (email: string) => {
+    try {
+      const response = await axios.post(`${BASEURL}deleteUser`, email);
+      console.log(response);
     } catch (err) {
       console.log('Failed to search for user', err);
     }
   }
 
 
-  return { updateUser, loginByPassword, searchUser, getUsers, loginWithGoogle, createUser, loading, error }
+  return { updateUser, loginByPassword, searchUser, getUsers, loginWithGoogle, createUser, deleteUser, loading, error }
 }
 
 
