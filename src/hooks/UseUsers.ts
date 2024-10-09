@@ -60,8 +60,19 @@ export default function UseUsers() {
     }
   }
 
+  const logout = async (): Promise<void> => {
+    try {
+        await axios.post(`${BASEURL}logout/`);
+        navigate('/login'); 
 
-  return { updateUser, loginByPassword, searchUser, getUsers, loginWithGoogle, loading, error }
+    } catch (err) {
+        console.log('Failed to logout', err);
+    }
+};
+
+
+
+  return { updateUser, loginByPassword, searchUser, getUsers, loginWithGoogle, logout, loading, error }
 }
 
 
