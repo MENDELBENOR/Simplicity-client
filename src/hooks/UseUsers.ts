@@ -63,7 +63,7 @@ export default function UseUsers() {
   const logout = async (): Promise<void> => {
     try {
         await axios.post(`${BASEURL}logout/`);
-        navigate('/login'); 
+        navigate(``); 
 
     } catch (err) {
         console.log('Failed to logout', err);
