@@ -43,7 +43,6 @@ const Table = ({ setUsers, users }: Prop) => {
         <thead>
           <tr className="bg-white">
             <th className="p-2 cursor-pointer">Icon</th>
-            <th className="p-2 cursor-pointer border-l-2">Edit</th>
             <th
               onClick={() => sortData("firstName")}
               className="p-2 cursor-pointer border-l-2"
@@ -63,6 +62,7 @@ const Table = ({ setUsers, users }: Prop) => {
               Email
             </th>
             <th className="p-2 cursor-pointer border-l-2">Phone</th>
+            <th className="p-2 cursor-pointer border-l-2">Edit</th>
           </tr>
         </thead>
         <tbody>
@@ -86,9 +86,12 @@ const Table = ({ setUsers, users }: Prop) => {
                   )}
                 </div>
               </td>
+              <td className="p-2">{user.firstName}</td>
+              <td className="p-2">{user.lastName}</td>
+              <td className="p-2">{user.email}</td>
+              <td className="p-2">{user.phone}</td>
               <td className="p-2 text-center">
                 <div className="flex flex-row items-center justify-center">
-                  {/* Edit Button */}
                   <div className="rounded-full flex justify-center items-center object-cover hover:bg-gray-100">
                     <LiaEdit
                       onClick={() => {
@@ -98,16 +101,11 @@ const Table = ({ setUsers, users }: Prop) => {
                       className="m-2 hover:bg-gray-200"
                     />
                   </div>
-                  {/* Delete Button */}
                   <div className="rounded-full flex justify-center items-center object-cover hover:bg-gray-100">
                     <RiDeleteBin7Line className="m-2 hover:bg-gray-200" />
                   </div>
                 </div>
               </td>
-              <td className="p-2">{user.firstName}</td>
-              <td className="p-2">{user.lastName}</td>
-              <td className="p-2">{user.email}</td>
-              <td className="p-2">{user.phone}</td>
             </tr>
           ))}
         </tbody>

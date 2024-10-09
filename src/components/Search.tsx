@@ -1,4 +1,4 @@
-import { getUsers, searchUser } from '../hooks/UseUsers';
+import UseUsers from '../hooks/UseUsers';
 import { IUser } from '../utils/types';
 
 type Props = {
@@ -6,6 +6,7 @@ type Props = {
 }
 
 export default function Search({ setUsers }: Props) {
+    const { getUsers, searchUser } = UseUsers();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const text = e.target.value;
