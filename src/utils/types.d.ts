@@ -5,7 +5,7 @@ export interface IUser {
     email: string,
     phone: string,
     password: string,
-    workSpaceList:string[],
+    workSpaceList: string[],
     icon: string,
 }
 
@@ -16,4 +16,7 @@ export type UserUpdate = {
     _id: strung,
 }
 
-  
+export type Credentials = {
+    email: string,
+    password: string
+} 
