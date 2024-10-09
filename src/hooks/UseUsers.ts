@@ -42,7 +42,8 @@ export default function UseUsers() {
 
   const loginByPassword = async (data: Credentials) => {
     try {
-      const response = await axios.post(`${BASEURL}searchUser/`, data);
+      const response = await axios.post(`${BASEURL}login/`, data);
+      console.log(response);
       navigate('/users');
     } catch (err) {
       console.log('Failed to search for user', err);
@@ -51,7 +52,8 @@ export default function UseUsers() {
 
   const loginWithGoogle = async (email: string) => {
     try {
-      const response = await axios.post(`${BASEURL}searchUser/`, email);
+      const response = await axios.post(`${BASEURL}loginWithGoogle/`, { email });
+      console.log(response);
       navigate('/users');
     } catch (err) {
       console.log('Failed to search for user', err);

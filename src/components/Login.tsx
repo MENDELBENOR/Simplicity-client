@@ -1,18 +1,21 @@
 import { useGoogleLogin } from "@react-oauth/google";
 import { Lock, Mail, Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
+import UseUsers from "../hooks/UseUsers";
 
 type Prop = {
     handleSwitch: () => void
 }
 
 export default function Login({ handleSwitch }: Prop) {
+    const { loginWithGoogle, loginByPassword } = UseUsers();
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const handleLogin = (e: React.FormEvent) => {
         e.preventDefault();
+        loginByPassword({ email, password });
     };
 
     const googleLogin = useGoogleLogin({
@@ -22,9 +25,9 @@ export default function Login({ handleSwitch }: Prop) {
             });
 
             const userData = await userInfo.json();
-            console.log("User Data:", userData);
-
-            //function to login by google
+            console.log("User Data:", userData.email);
+            if (userData.email_verified)
+                loginWithGoogle(userData.email);
         },
         onError: () => console.log("Google Login Failed"),
     });
