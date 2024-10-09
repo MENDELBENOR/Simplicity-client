@@ -1,35 +1,43 @@
 import { useGoogleLogin } from "@react-oauth/google";
 import { Lock, Mail, Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
+import UseUsers from "../hooks/UseUsers";
 
 type Prop = {
     handleSwitch: () => void
 }
 
 export default function Login({ handleSwitch }: Prop) {
+    const { loginWithGoogle, loginByPassword } = UseUsers();
     const [showPassword, setShowPassword] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleLogin = (e: React.FormEvent) => {
         e.preventDefault();
+        loginByPassword({ email, password });
     };
+
     const googleLogin = useGoogleLogin({
         onSuccess: async (tokenResponse) => {
-
             const userInfo = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
                 headers: { Authorization: `Bearer ${tokenResponse.access_token}` },
             });
 
             const userData = await userInfo.json();
-            console.log("User Data:", userData);
+            console.log("User Data:", userData.email);
+            if (userData.email_verified)
+                loginWithGoogle(userData.email);
         },
         onError: () => console.log("Google Login Failed"),
     });
+
     return (
         <div>
             <div>
-                <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Login in to your account</h2>
+                <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Login to your account</h2>
             </div>
-            <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+            <form className="mt-8 space-y-6" onSubmit={handleLogin}>
                 <div className="rounded-md shadow-sm -space-y-px">
                     <div>
                         <label htmlFor="email-address" className="sr-only">Email address</label>
@@ -37,7 +45,17 @@ export default function Login({ handleSwitch }: Prop) {
                             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <Mail className="h-5 w-5 text-gray-400" />
                             </div>
-                            <input id="email-address" name="email" type="email" autoComplete="email" required className="appearance-none rounded-none relative block w-full px-3 py-2 pl-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Email address" />
+                            <input
+                                id="email-address"
+                                name="email"
+                                type="email"
+                                autoComplete="email"
+                                required
+                                className="appearance-none rounded-none relative block w-full px-3 py-2 pl-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                placeholder="Email address"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
                         </div>
                     </div>
                     <div>
@@ -46,7 +64,17 @@ export default function Login({ handleSwitch }: Prop) {
                             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <Lock className="h-5 w-5 text-gray-400" />
                             </div>
-                            <input id="password" name="password" type={showPassword ? "text" : "password"} autoComplete="current-password" required className="appearance-none rounded-none relative block w-full px-3 py-2 pl-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Password" />
+                            <input
+                                id="password"
+                                name="password"
+                                type={showPassword ? "text" : "password"}
+                                autoComplete="current-password"
+                                required
+                                className="appearance-none rounded-none relative block w-full px-3 py-2 pl-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                placeholder="Password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
                             <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
                                 <button type="button" onClick={() => setShowPassword(!showPassword)} className="focus:outline-none">
                                     {showPassword ? <EyeOff className="h-5 w-5 text-gray-400" /> : <Eye className="h-5 w-5 text-gray-400" />}
@@ -86,9 +114,7 @@ export default function Login({ handleSwitch }: Prop) {
                 </div>
                 <div className='text-center text-gray-500 mt-3'>
                     <div>
-                        Don’t have an account? <span onClick={() => {
-                            handleSwitch();
-                        }} className='text-blue-700 cursor-pointer font-semibold hover:underline'>Sign in</span>
+                        Don't have an account? <span onClick={handleSwitch} className='text-blue-700 cursor-pointer font-semibold hover:underline'>Sign up</span>
                     </div>
                 </div>
             </div>

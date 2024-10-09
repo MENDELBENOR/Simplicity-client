@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import Table from "../components/TableUsers";
 import { IUser } from "../utils/types";
 import CreateUser from "./CreateUser";
-import { getUsers } from "../hooks/UseUsers";
 import Search from "../components/Search";
 import ButtonExport from "../components/ButtonExport";
+import UseUsers from "../hooks/UseUsers";
 
 export default function MainContent() {
+
+    const { getUsers } = UseUsers();
     const [users, setUsers] = useState<IUser[]>([]);
 
     useEffect(() => {

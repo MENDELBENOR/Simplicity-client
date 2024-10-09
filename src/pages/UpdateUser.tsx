@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { IUser, UserUpdate } from '../utils/types';
 import { validFirstName, validLastName, validPhone } from '../utils/helper';
 import InputField from '../components/InputField';  // Import the new InputField component
-import { updateUser } from '../hooks/UseUsers';
+import UseUsers from '../hooks/UseUsers';
 
 type Prop = {
   setPopUpdateUser: (value: React.SetStateAction<boolean>) => void;
@@ -10,8 +10,7 @@ type Prop = {
 }
 const UpdateUser = ({ setPopUpdateUser, data }: Prop) => {
 
-  console.log(data);
-
+  const { updateUser } = UseUsers();
 
   const [user, setUser] = useState<UserUpdate>({
     firstName: data.firstName,
