@@ -5,7 +5,7 @@ import { Buffer } from 'buffer';
 const ButtonExport: React.FC = () => {
   const handleExport = async () => {
     try {
-      const response = await axios.get('http://localhost:5001/api/users/export');
+      const response = await axios.get('http://localhost:3001/api/users/export');
       console.log(response);
 
       // בדיקה אם התגובה הייתה מוצלחת
