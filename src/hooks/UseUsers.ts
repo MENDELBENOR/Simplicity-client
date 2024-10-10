@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { login } from '../redux/slices/userSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../redux/store';
+import { errorFromServer, loginToast, successFromServer } from '../utils/toast';
 const BASEURL = "http://localhost:3001/api/";
 
 
@@ -17,19 +18,22 @@ export default function UseUsers() {
   const getUsers = async (setUsers: React.Dispatch<React.SetStateAction<IUser[]>>) => {
     try {
       const response = await axios.get(`${BASEURL}getAllUsers`);
-      setUsers(response.data.data);
+      if (response.data.isSuccessful)
+        setUsers(response.data.data);
     } catch (err) {
+      if (axios.isAxiosError(err))
+        errorFromServer(err.response?.data.displayMessage);
       setUsers([]);
-      console.log('Failed to fetch users', err);
     }
   };
 
   const updateUser = async (user: UserUpdate) => {
     try {
       const response = await axios.patch(`${BASEURL}updateUser`, user);
-      console.log(response.data.data);
+      successFromServer(response.data.displayMessage);
     } catch (err) {
-      console.log('Failed to fetch users', err);
+      if (axios.isAxiosError(err))
+        errorFromServer(err.response?.data.displayMessage)
     }
   };
 
@@ -48,9 +52,11 @@ export default function UseUsers() {
         withCredentials: true,
       });
       console.log(response);
+      loginToast()
       navigate('/users');
     } catch (err) {
-      console.log('Failed to search for user', err);
+      if (axios.isAxiosError(err))
+        errorFromServer(err.response?.data.displayMessage)
     }
   }
 
@@ -61,8 +67,10 @@ export default function UseUsers() {
       });
       dispatch(login(response.data.data));
       navigate('/users');
+      loginToast();
     } catch (err) {
-      console.log('Failed to search for user', err);
+      if (axios.isAxiosError(err))
+        errorFromServer(err.response?.data.displayMessage)
     }
   };
 
@@ -71,7 +79,8 @@ export default function UseUsers() {
       const response = await axios.post(`${BASEURL}createUser`, user);
       console.log(response);
     } catch (err) {
-      console.log('Failed to search for user', err);
+      if (axios.isAxiosError(err))
+        errorFromServer(err.response?.data.displayMessage)
     }
   }
 
@@ -80,7 +89,8 @@ export default function UseUsers() {
       const response = await axios.post(`${BASEURL}deleteUser`, email);
       console.log(response);
     } catch (err) {
-      console.log('Failed to search for user', err);
+      if (axios.isAxiosError(err))
+        errorFromServer(err.response?.data.displayMessage)
     }
   }
 
