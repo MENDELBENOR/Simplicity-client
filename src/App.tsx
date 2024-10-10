@@ -3,10 +3,12 @@ import './App.css';
 import Layout from './Layout/Layout';
 import Welcome from './pages/Welcome';
 import MainContent from './pages/MainContent';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
     <BrowserRouter>
+      <Toaster position="bottom-right" />
       <Routes>
         <Route path='/' element={<Welcome />} />
         <Route

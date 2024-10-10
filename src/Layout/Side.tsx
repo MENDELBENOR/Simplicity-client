@@ -19,7 +19,7 @@ const Side: React.FC<SideProps> = ({ isOpen }) => {
         <div className='absolute text-black text-sm top-[33px] font-bold'>
           Simplicity
         </div>
-        <img src="../../public/images/M.png" alt="Image" className='w-28' />
+        <img src="/images/M.png" alt="Image" className='w-28' />
       </div>
 
       {/* קישורים במרכז */}

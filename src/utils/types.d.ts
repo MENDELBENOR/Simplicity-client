@@ -16,6 +16,14 @@ export type UserUpdate = {
     _id: strung,
 }
 
+export type UserSignUp = {
+    firstName: string,
+    lastName: string,
+    phone: string,
+    email: string,
+    password: strung
+}
+
 export type Credentials = {
     email: string,
     password: string
