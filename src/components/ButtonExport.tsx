@@ -27,7 +27,7 @@ const ButtonExport: React.FC = () => {
     <div className="flex justify-center">
       <button
         onClick={handleExport}
-        className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
+        className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded shadow-lg transition duration-300 ease-in-out  hover:-translate-y-1 hover:scale-105"
       >
         Export
       </button>
