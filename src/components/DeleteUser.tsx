@@ -42,7 +42,7 @@ export default function DeleteUser({ setPopDeleteUser, data }: Prop) {
                     <button
                         onClick={() => { setPopDeleteUser(false) }}
                         className="bg-blue-500 px-4 py-2 rounded-lg hover:scale-105 hover:bg-blue-700 text-white transition transform duration-300">
-                        cancell
+                        cancel
                     </button>
                 </div>
             </div>
