@@ -51,7 +51,7 @@ export default function UseUsers() {
       const response = await axios.post(`${BASEURL}login`, data, {
         withCredentials: true,
       });
-      console.log(response);
+      dispatch(login(response.data.data));
       loginToast()
       navigate('/users');
     } catch (err) {

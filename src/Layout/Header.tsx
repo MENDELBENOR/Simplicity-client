@@ -9,6 +9,7 @@ type HeaderProps = {
 
 const Header: React.FC<HeaderProps> = ({ toggleAside, isAsideOpen }: HeaderProps) => {
   const user = useSelector((state: RootState) => state.user.user);
+
   return (
     <header className="bg-gray-800 text-white flex justify-end fixed top-0 w-full shadow-md">
       <p>{user?.firstName}</p>
