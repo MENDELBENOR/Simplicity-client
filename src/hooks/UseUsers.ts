@@ -30,6 +30,7 @@ export default function UseUsers() {
   const updateUser = async (user: UserUpdate) => {
     try {
       const response = await axios.patch(`${BASEURL}updateUser`, user);
+     // window.location.reload();
       successFromServer(response.data.displayMessage);
     } catch (err) {
       if (axios.isAxiosError(err))
@@ -86,11 +87,17 @@ export default function UseUsers() {
   //delete User
   const deleteUser = async (email: string) => {
     try {
-      const response = await axios.post(`${BASEURL}deleteUser`, email);
+      const response = await axios.delete(`${BASEURL}deleteUser`, {
+        data: { email }
+      });
+      //window.location.reload();
       console.log(response);
+      
     } catch (err) {
       if (axios.isAxiosError(err))
         errorFromServer(err.response?.data.displayMessage)
+      console.log("bad");
+      
     }
   }
   //logout

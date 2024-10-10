@@ -13,8 +13,8 @@ export default function DeleteUser({ setPopDeleteUser, data }: Prop) {
     <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md border border-gray-300">
         <div
             className="absolute top-0 right-0 m-2 p-1 rounded-full bg-red-700 text-white cursor-pointer"
-            onClick={() => { setPopDeleteUser(false) }}
-        >
+            onClick={() => { setPopDeleteUser(false) }} >
+       
             <svg
                 className="w-6 h-6"
                 xmlns="http://www.w3.org/2000/svg"
