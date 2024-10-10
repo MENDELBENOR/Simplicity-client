@@ -93,9 +93,22 @@ export default function UseUsers() {
         errorFromServer(err.response?.data.displayMessage)
     }
   }
+  //logout
+  const logout = async (): Promise<void> => {
+    try {
+      await axios.post(`${BASEURL}logout`,{},{withCredentials: true});
+      navigate(``);
+      
+    } catch (err) {
+      console.log('Failed to logout', err);
+    }
+  };
 
 
-  return { updateUser, loginByPassword, searchUser, getUsers, loginWithGoogle, createUser, deleteUser, loading, error }
+
+
+
+  return { updateUser, loginByPassword, searchUser, getUsers, loginWithGoogle, createUser, deleteUser, logout, loading, error }
 }
 
 
