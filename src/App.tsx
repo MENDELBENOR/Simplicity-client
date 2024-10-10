@@ -11,9 +11,7 @@ function App() {
       <Toaster position="bottom-right" />
       <Routes>
         <Route path='/' element={<Welcome />} />
-        <Route
-          element={<Layout />}
-        >
+        <Route element={<Layout />}>
           <Route path='/users' element={<MainContent />} />
           <Route path='/about' element={<div>About Page</div>} />
           <Route path='/services' element={<div>Services Page</div>} />

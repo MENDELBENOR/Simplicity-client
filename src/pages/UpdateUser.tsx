@@ -39,7 +39,7 @@ const UpdateUser = ({ setPopUpdateUser, data }: Prop) => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen w-full bg-black bg-opacity-50 p-4 absolute top-1/2 left-1/2 transform -translate-x-[50%] -translate-y-[50%]">
+    <div className="flex items-center justify-center min-h-screen w-full bg-black bg-opacity-50 p-4 fixed top-1/2 left-1/2 transform -translate-x-[50%] -translate-y-[50%]">
       <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md border border-gray-300 relative">
         <div
           className="absolute top-0 right-0 m-2 p-1 rounded-full bg-red-700 text-white cursor-pointer"
