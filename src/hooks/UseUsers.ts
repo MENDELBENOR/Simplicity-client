@@ -83,7 +83,7 @@ export default function UseUsers() {
         errorFromServer(err.response?.data.displayMessage)
     }
   }
-
+  //delete User
   const deleteUser = async (email: string) => {
     try {
       const response = await axios.post(`${BASEURL}deleteUser`, email);
@@ -96,9 +96,9 @@ export default function UseUsers() {
   //logout
   const logout = async (): Promise<void> => {
     try {
-      await axios.post(`${BASEURL}logout`,{},{withCredentials: true});
+      await axios.post(`${BASEURL}logout`, {}, { withCredentials: true });
       navigate(``);
-      
+
     } catch (err) {
       console.log('Failed to logout', err);
     }
