@@ -1,8 +1,11 @@
 import axios from 'axios';
-import { IUser, UserUpdate, Credentials } from '../utils/types';
+import { IUser, UserUpdate, Credentials, UserSignUp } from '../utils/types';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-
+import { login } from '../redux/slices/userSlice';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../redux/store';
+import { errorFromServer, loginToast, successFromServer } from '../utils/toast';
 const BASEURL = "http://localhost:3001/api/";
 
 
@@ -10,24 +13,27 @@ export default function UseUsers() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
-
+  const dispatch: AppDispatch = useDispatch();
 
   const getUsers = async (setUsers: React.Dispatch<React.SetStateAction<IUser[]>>) => {
     try {
       const response = await axios.get(`${BASEURL}getAllUsers`);
-      setUsers(response.data.data);
+      if (response.data.isSuccessful)
+        setUsers(response.data.data);
     } catch (err) {
+      if (axios.isAxiosError(err))
+        errorFromServer(err.response?.data.displayMessage);
       setUsers([]);
-      console.log('Failed to fetch users', err);
     }
   };
 
   const updateUser = async (user: UserUpdate) => {
     try {
       const response = await axios.patch(`${BASEURL}updateUser`, user);
-      console.log(response.data.data);
+      successFromServer(response.data.displayMessage);
     } catch (err) {
-      console.log('Failed to fetch users', err);
+      if (axios.isAxiosError(err))
+        errorFromServer(err.response?.data.displayMessage)
     }
   };
 
@@ -42,26 +48,54 @@ export default function UseUsers() {
 
   const loginByPassword = async (data: Credentials) => {
     try {
-      const response = await axios.post(`${BASEURL}login/`, data);
-      console.log(response);
+      const response = await axios.post(`${BASEURL}login`, data, {
+        withCredentials: true,
+      });
+      dispatch(login(response.data.data));
+      loginToast()
       navigate('/users');
     } catch (err) {
-      console.log('Failed to search for user', err);
+      if (axios.isAxiosError(err))
+        errorFromServer(err.response?.data.displayMessage)
     }
   }
 
   const loginWithGoogle = async (email: string) => {
     try {
-      const response = await axios.post(`${BASEURL}loginWithGoogle/`, { email });
-      console.log(response);
+      const response = await axios.post(`${BASEURL}loginWithGoogle`, { email }, {
+        withCredentials: true,
+      });
+      dispatch(login(response.data.data));
       navigate('/users');
+      loginToast();
     } catch (err) {
-      console.log('Failed to search for user', err);
+      if (axios.isAxiosError(err))
+        errorFromServer(err.response?.data.displayMessage)
+    }
+  };
+
+  const createUser = async (user: UserSignUp) => {
+    try {
+      const response = await axios.post(`${BASEURL}createUser`, user);
+      console.log(response);
+    } catch (err) {
+      if (axios.isAxiosError(err))
+        errorFromServer(err.response?.data.displayMessage)
+    }
+  }
+
+  const deleteUser = async (email: string) => {
+    try {
+      const response = await axios.post(`${BASEURL}deleteUser`, email);
+      console.log(response);
+    } catch (err) {
+      if (axios.isAxiosError(err))
+        errorFromServer(err.response?.data.displayMessage)
     }
   }
 
 
-  return { updateUser, loginByPassword, searchUser, getUsers, loginWithGoogle, loading, error }
+  return { updateUser, loginByPassword, searchUser, getUsers, loginWithGoogle, createUser, deleteUser, loading, error }
 }
 
 
