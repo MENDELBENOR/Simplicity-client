@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IUser } from "../utils/types";
 import { LiaEdit } from "react-icons/lia";
 import { RiDeleteBin7Line } from "react-icons/ri";
 import UpdateUser from "../pages/UpdateUser";
 import DeleteUser from "./DeleteUser";
+import { AppDispatch } from "../redux/store";
+import { setUsers } from "../redux/slices/usersSlice";
+import { useDispatch } from "react-redux";
 
 type Sort = {
   key: keyof IUser | null;
@@ -11,11 +14,12 @@ type Sort = {
 };
 
 type Prop = {
-  setUsers: React.Dispatch<React.SetStateAction<IUser[]>>;
   users: IUser[];
-};
+}
 
-const Table = ({ setUsers, users }: Prop) => {
+const Table = ({ users }: Prop) => {
+  const dispatch: AppDispatch = useDispatch();
+
   const [popUpdateUser, setPopUpdateUser] = useState<boolean>(false);
   const [popDeleteUser, setPopDeleteUser] = useState<boolean>(false);
   const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
@@ -35,9 +39,17 @@ const Table = ({ setUsers, users }: Prop) => {
       return 0;
     });
 
-    setUsers(sortedData);
+    dispatch(setUsers(sortedData));
     setSortConfig({ key, direction });
   };
+
+  useEffect(() => {
+    console.log(users);
+  }, [users])
+
+  if (!users || users.length === 0) {
+    return <p>No users found.</p>;
+  }
 
   return (
     <>

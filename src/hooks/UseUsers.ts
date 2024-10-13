@@ -1,11 +1,12 @@
 import axios from 'axios';
-import { IUser, UserUpdate, Credentials, UserSignUp } from '../utils/types';
+import { UserUpdate, Credentials, UserSignUp } from '../utils/types';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { login } from '../redux/slices/userSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../redux/store';
 import { errorFromServer, loginToast, successFromServer } from '../utils/toast';
+import { initialUsers, removeUser, setUsers } from '../redux/slices/usersSlice';
 const BASEURL = "http://localhost:3001/api/";
 
 
@@ -15,32 +16,21 @@ export default function UseUsers() {
   const [error, setError] = useState<boolean>(false);
   const dispatch: AppDispatch = useDispatch();
 
-  const getUsers = async (setUsers: React.Dispatch<React.SetStateAction<IUser[]>>) => {
-    try {
-      const response = await axios.get(`${BASEURL}getAllUsers`, { withCredentials: true });
-      if (response.data.isSuccessful)
-        setUsers(response.data.data);
-    } catch (err) {
-      if (axios.isAxiosError(err))
-        errorFromServer(err.response?.data.displayMessage);
-      setUsers([]);
-    }
-  };
-
   const updateUser = async (user: UserUpdate) => {
     try {
       const response = await axios.patch(`${BASEURL}updateUser`, user, { withCredentials: true });
       successFromServer(response.data.displayMessage);
+      dispatch(initialUsers());
     } catch (err) {
       if (axios.isAxiosError(err))
         errorFromServer(err.response?.data.displayMessage)
     }
   };
 
-  const searchUser = async (text: string, setUsers: React.Dispatch<React.SetStateAction<IUser[]>>) => {
+  const searchUser = async (text: string) => {
     try {
       const response = await axios.get(`${BASEURL}searchUser/${text}`, { withCredentials: true });
-      setUsers(response.data.data);
+      dispatch(setUsers(response.data.data));
     } catch (err) {
       console.log('Failed to search for user', err);
     }
@@ -86,13 +76,13 @@ export default function UseUsers() {
   //delete User
   const deleteUser = async (email: string) => {
     try {
-      const response = await axios.post(`${BASEURL}deleteUser`, email, { withCredentials: true });
-      console.log(response);
+      const response = await axios.delete(`${BASEURL}deleteUser/${email}`, { withCredentials: true });
+      console.log(response.data.displayMessage);
+      successFromServer(response.data.displayMessage)
+      dispatch(removeUser(email));
     } catch (err) {
       if (axios.isAxiosError(err))
         errorFromServer(err.response?.data.displayMessage)
-      console.log("bad");
-
     }
   }
   //logout
@@ -109,7 +99,7 @@ export default function UseUsers() {
 
 
 
-  return { updateUser, loginByPassword, searchUser, getUsers, loginWithGoogle, createUser, deleteUser, logout, loading, error }
+  return { updateUser, loginByPassword, searchUser, loginWithGoogle, createUser, deleteUser, logout, loading, error }
 }
 
 
