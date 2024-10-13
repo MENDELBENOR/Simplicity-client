@@ -17,7 +17,7 @@ export default function UseUsers() {
 
   const getUsers = async (setUsers: React.Dispatch<React.SetStateAction<IUser[]>>) => {
     try {
-      const response = await axios.get(`${BASEURL}getAllUsers`);
+      const response = await axios.get(`${BASEURL}getAllUsers`, { withCredentials: true });
       if (response.data.isSuccessful)
         setUsers(response.data.data);
     } catch (err) {
@@ -29,7 +29,7 @@ export default function UseUsers() {
 
   const updateUser = async (user: UserUpdate) => {
     try {
-      const response = await axios.patch(`${BASEURL}updateUser`, user);
+      const response = await axios.patch(`${BASEURL}updateUser`, user, { withCredentials: true });
       successFromServer(response.data.displayMessage);
     } catch (err) {
       if (axios.isAxiosError(err))
@@ -39,7 +39,7 @@ export default function UseUsers() {
 
   const searchUser = async (text: string, setUsers: React.Dispatch<React.SetStateAction<IUser[]>>) => {
     try {
-      const response = await axios.get(`${BASEURL}searchUser/${text}`,);
+      const response = await axios.get(`${BASEURL}searchUser/${text}`, { withCredentials: true });
       setUsers(response.data.data);
     } catch (err) {
       console.log('Failed to search for user', err);
@@ -76,7 +76,7 @@ export default function UseUsers() {
 
   const createUser = async (user: UserSignUp) => {
     try {
-      const response = await axios.post(`${BASEURL}createUser`, user);
+      const response = await axios.post(`${BASEURL}createUser`, user, { withCredentials: true });
       console.log(response);
     } catch (err) {
       if (axios.isAxiosError(err))
@@ -86,7 +86,7 @@ export default function UseUsers() {
   //delete User
   const deleteUser = async (email: string) => {
     try {
-      const response = await axios.post(`${BASEURL}deleteUser`, email);
+      const response = await axios.post(`${BASEURL}deleteUser`, email, { withCredentials: true });
       console.log(response);
     } catch (err) {
       if (axios.isAxiosError(err))
@@ -98,7 +98,6 @@ export default function UseUsers() {
     try {
       await axios.post(`${BASEURL}logout`, {}, { withCredentials: true });
       navigate(``);
-
     } catch (err) {
       console.log('Failed to logout', err);
     }

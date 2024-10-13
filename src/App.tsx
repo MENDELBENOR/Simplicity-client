@@ -4,8 +4,25 @@ import Layout from './Layout/Layout';
 import Welcome from './pages/Welcome';
 import MainContent from './pages/MainContent';
 import { Toaster } from 'react-hot-toast';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { AppDispatch, RootState } from './redux/store';
+import { initialUser } from './redux/slices/userSlice';
 
 function App() {
+
+  const dispatch = useDispatch<AppDispatch>();
+  const user = useSelector((state: RootState) => state.user.user);
+
+  useEffect(() => {
+    dispatch(initialUser());
+  }, [dispatch]);
+
+  useEffect(() => {
+    console.log(user);
+  }, [])
+
   return (
     <BrowserRouter>
       <Toaster position="bottom-right" />
