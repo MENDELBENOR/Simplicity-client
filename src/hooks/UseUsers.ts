@@ -95,9 +95,7 @@ export default function UseUsers() {
       
     } catch (err) {
       if (axios.isAxiosError(err))
-        errorFromServer(err.response?.data.displayMessage)
-      console.log("bad");
-      
+        errorFromServer(err.response?.data.displayMessage)      
     }
   }
   //logout
