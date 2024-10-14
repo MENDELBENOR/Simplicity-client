@@ -9,6 +9,13 @@ export interface IUser {
     icon: string,
 }
 
+export interface IGroup {
+    _id: string;
+    name: string;
+    description: string;
+    projectId: string;
+}
+
 export type UserUpdate = {
     firstName: string,
     lastName: string,
@@ -27,4 +34,5 @@ export type UserSignUp = {
 export type Credentials = {
     email: string,
     password: string
-} 
+}
+
