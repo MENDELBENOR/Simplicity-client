@@ -13,7 +13,6 @@ export const BASEURL = "http://localhost:3001/api/";
 export default function UseUsers() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<boolean>(false);
   const dispatch: AppDispatch = useDispatch();
 
   const updateUser = async (user: UserUpdate) => {
@@ -40,6 +39,7 @@ export default function UseUsers() {
   }
 
   const loginByPassword = async (data: Credentials) => {
+    setLoading(true);
     try {
       const response = await axios.post(`${BASEURL}login`, data, {
         withCredentials: true,
@@ -53,10 +53,12 @@ export default function UseUsers() {
       if (axios.isAxiosError(err))
         errorFromServer(err.response?.data.displayMessage)
     }
+    setLoading(false);
   }
 
   const loginWithGoogle = async (email: string) => {
     try {
+      setLoading(true);
       const response = await axios.post(`${BASEURL}loginWithGoogle`, { email }, {
         withCredentials: true,
       });
@@ -69,6 +71,7 @@ export default function UseUsers() {
       if (axios.isAxiosError(err))
         errorFromServer(err.response?.data.displayMessage)
     }
+    setLoading(false);
   };
 
   const createUser = async (user: UserSignUp) => {
@@ -110,7 +113,7 @@ export default function UseUsers() {
   };
 
 
-  return { updateUser, loginByPassword, searchUser, loginWithGoogle, createUser, deleteUser, logout, loading, error }
+  return { updateUser, loginByPassword, searchUser, loginWithGoogle, createUser, deleteUser, logout, loading }
 }
 
 

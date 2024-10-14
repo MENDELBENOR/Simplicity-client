@@ -1,9 +1,7 @@
 import { LuMenu } from 'react-icons/lu';
 import { RootState } from '../redux/store';
 import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import { toggleTheme } from '../redux/slices/themeSlice';
+import ModeLight from '../components/ModeLight';
 
 type HeaderProps = {
   toggleAside: () => void;
@@ -12,21 +10,10 @@ type HeaderProps = {
 
 const Header: React.FC<HeaderProps> = ({ toggleAside, isAsideOpen }: HeaderProps) => {
   const user = useSelector((state: RootState) => state.user.user);
-  const theme = useSelector((state: RootState) => state.theme);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', theme === 'dark');
-  }, [theme]);
 
   return (
     <header className="bg-gray-800 text-white flex justify-between items-center fixed top-0 w-full shadow-md">
-      <button
-        onClick={() => dispatch(toggleTheme())}
-        className="px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-white rounded"
-      >
-        Switch to {theme === 'light' ? 'Dark' : 'Light'} Mode
-      </button>
+      <ModeLight />
       <p className='p-2'>{user?.firstName}</p>
       <button
         onClick={toggleAside}
