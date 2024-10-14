@@ -1,19 +1,18 @@
+import { useDispatch } from 'react-redux';
 import UseUsers from '../hooks/UseUsers';
-import { IUser } from '../utils/types';
+import { AppDispatch } from '../redux/store';
+import { initialUsers } from '../redux/slices/usersSlice';
 
-type Props = {
-    setUsers: React.Dispatch<React.SetStateAction<IUser[]>>;
-}
-
-export default function Search({ setUsers }: Props) {
-    const { getUsers, searchUser } = UseUsers();
+export default function Search() {
+    const dispatch: AppDispatch = useDispatch();
+    const { searchUser } = UseUsers();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const text = e.target.value;
         if (text.length === 0)
-            getUsers(setUsers);
+            dispatch(initialUsers());
         else
-            searchUser(text, setUsers);
+            searchUser(text);
     }
 
     return (

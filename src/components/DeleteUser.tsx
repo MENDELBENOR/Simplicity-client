@@ -8,13 +8,16 @@ type Prop = {
 export default function DeleteUser({ setPopDeleteUser, data }: Prop) {
 
     const { deleteUser } = UseUsers();
+
+    console.log(data);
+
     return (
-        <div className="flex items-center justify-center min-h-screen w-full bg-black bg-opacity-50 p-4 absolute top-1/2 left-1/2 transform -translate-x-[50%] -translate-y-[50%]">
-            <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md border border-gray-300 relative">
+        <div className="flex items-center justify-center min-h-screen w-full bg-black bg-opacity-50 p-4 fixed top-0 left-0 z-50">
+            <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md border border-gray-300">
                 <div
                     className="absolute top-0 right-0 m-2 p-1 rounded-full bg-red-700 text-white cursor-pointer"
-                    onClick={() => { setPopDeleteUser(false) }}
-                >
+                    onClick={() => { setPopDeleteUser(false) }} >
+
                     <svg
                         className="w-6 h-6"
                         xmlns="http://www.w3.org/2000/svg"
@@ -26,7 +29,7 @@ export default function DeleteUser({ setPopDeleteUser, data }: Prop) {
                     </svg>
                 </div>
 
-                <p className="font-semibold text-center text-gray-800 mb-5">Are you to DELETE
+                <p className="font-semibold text-center text-gray-800 mb-5">Are you sure you want to DELETE
                     <span className="text-blue-600">{" "} {data.email}</span>
                 </p>
 
@@ -46,7 +49,7 @@ export default function DeleteUser({ setPopDeleteUser, data }: Prop) {
                     </button>
                 </div>
             </div>
-
         </div>
+
     )
 }
