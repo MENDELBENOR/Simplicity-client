@@ -5,10 +5,10 @@ import { Outlet } from 'react-router-dom';
 import Side from "./Side";
 
 const Layout: React.FC = () => {
-  const [isAsideOpen, setAsideOpen] = useState<boolean>(true);
+  const [isAsideOpen, setAsideOpen] = useState<boolean>(false); // התחל כנסתר
 
   const toggleAside = () => {
-    setAsideOpen(!isAsideOpen)
+    setAsideOpen(!isAsideOpen);
   }
 
   return (
@@ -17,7 +17,7 @@ const Layout: React.FC = () => {
       <Header toggleAside={toggleAside} isAsideOpen={isAsideOpen} />
 
       {/* תוכן מרכזי */}
-      <main className="flex-grow transition-transform duration-300">
+      <main className={`flex-grow transition-transform duration-300 ${isAsideOpen ? 'ml-[200px]' : ''}`}>
         <Outlet />
       </main>
 
