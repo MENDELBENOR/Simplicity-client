@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { IUser } from "../utils/types";
 import { LiaEdit } from "react-icons/lia";
 import { RiDeleteBin7Line } from "react-icons/ri";
@@ -7,6 +7,8 @@ import DeleteUser from "./DeleteUser";
 import { AppDispatch } from "../redux/store";
 import { setUsers } from "../redux/slices/usersSlice";
 import { useDispatch } from "react-redux";
+import Loading from "./Loading";
+import UseUsers from "../hooks/UseUsers";
 
 type Sort = {
   key: keyof IUser | null;
@@ -19,7 +21,7 @@ type Prop = {
 
 const Table = ({ users }: Prop) => {
   const dispatch: AppDispatch = useDispatch();
-
+  const { loading } = UseUsers();
   const [popUpdateUser, setPopUpdateUser] = useState<boolean>(false);
   const [popDeleteUser, setPopDeleteUser] = useState<boolean>(false);
   const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
@@ -43,19 +45,17 @@ const Table = ({ users }: Prop) => {
     setSortConfig({ key, direction });
   };
 
-  useEffect(() => {
-    console.log(users);
-  }, [users])
-
   if (!users || users.length === 0) {
     return <p>No users found.</p>;
   }
+
+  if (loading) return <Loading />
 
   return (
     <>
       <table className="min-w-[400px] w-[80%] text-center overflow-x-auto border-separate border-spacing-y-2">
         <thead>
-          <tr className="bg-white">
+          <tr className="bg-white dark:bg-gray-600 dark:text-white">
             <th className="p-2 cursor-pointer">Icon</th>
             <th
               onClick={() => sortData("firstName")}
@@ -83,7 +83,7 @@ const Table = ({ users }: Prop) => {
           {users.map((user) => (
             <tr
               key={user._id}
-              className="transition-transform duration-300 ease-in-out bg-white"
+              className="transition-transform duration-300 ease-in-out bg-white dark:bg-gray-600 dark:text-white"
             >
               <td>
                 <div className="w-full flex justify-center items-center">
@@ -106,23 +106,25 @@ const Table = ({ users }: Prop) => {
               <td className="p-2">{user.phone}</td>
               <td className="p-2 text-center">
                 <div className="flex flex-row items-center justify-center">
-                  <div className="rounded-full flex justify-center items-center object-cover hover:bg-gray-100">
+                  <div className="rounded-full flex justify-center items-center object-cover hover:bg-gray-100 dark:hover:bg-black">
                     <LiaEdit
                       onClick={() => {
                         setSelectedUser(user);
                         setPopUpdateUser(true);
                       }}
-                      className="m-2 hover:bg-gray-200"
+                      className="m-2"
                     />
                   </div>
-                  <div className="rounded-full flex justify-center items-center object-cover hover:bg-gray-100">
+                  <div className="rounded-full flex justify-center items-center object-cover hover:bg-gray-100 dark:hover:bg-black">
                     <RiDeleteBin7Line
                       onClick={() => {
                         setSelectedUser(user);
                         setPopDeleteUser(true);
                       }}
-                      className="m-2 hover:bg-gray-200" />
+                      className="m-2"
+                    />
                   </div>
+
                 </div>
               </td>
             </tr>

@@ -3,13 +3,14 @@ import { Lock, Mail, Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
 import UseUsers from "../hooks/UseUsers";
 import { Link } from "react-router-dom";
+import Loading from "./Loading";
 
 type Prop = {
     handleSwitch: () => void
 }
 
 export default function Login({ handleSwitch }: Prop) {
-    const { loginWithGoogle, loginByPassword } = UseUsers();
+    const { loginWithGoogle, loginByPassword, loading } = UseUsers();
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -18,6 +19,7 @@ export default function Login({ handleSwitch }: Prop) {
         e.preventDefault();
         loginByPassword({ email, password });
     };
+
 
     const googleLogin = useGoogleLogin({
         onSuccess: async (tokenResponse) => {
@@ -32,12 +34,14 @@ export default function Login({ handleSwitch }: Prop) {
         onError: () => console.log("Google Login Failed"),
     });
 
+    if (loading) return <Loading />
+
     return (
         <div>
             <div>
-                <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Login to your account</h2>
+                <h2 className="mt-2 text-center text-3xl font-extrabold ">Login to your account</h2>
             </div>
-            <form className="mt-8 space-y-6" onSubmit={handleLogin}>
+            <form className="mt-6 space-y-6" onSubmit={handleLogin}>
                 <div className="rounded-md shadow-sm -space-y-px">
                     <div>
                         <label htmlFor="email-address" className="sr-only">Email address</label>
@@ -51,7 +55,7 @@ export default function Login({ handleSwitch }: Prop) {
                                 type="email"
                                 autoComplete="email"
                                 required
-                                className="appearance-none rounded-none relative block w-full px-3 py-2 pl-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                className="appearance-none bg-transparent rounded-none relative block w-full px-3 py-2 pl-10 border border-gray-300 placeholder-gray-500  dark:text-white rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                 placeholder="Email address"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
@@ -70,7 +74,7 @@ export default function Login({ handleSwitch }: Prop) {
                                 type={showPassword ? "text" : "password"}
                                 autoComplete="current-password"
                                 required
-                                className="appearance-none rounded-none relative block w-full px-3 py-2 pl-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                className="appearance-none bg-transparent rounded-none relative block w-full px-3 py-2 pl-10 border border-gray-300 placeholder-gray-500 dark:text-white rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                 placeholder="Password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
@@ -96,7 +100,7 @@ export default function Login({ handleSwitch }: Prop) {
                         <div className="w-full border-t border-gray-300"></div>
                     </div>
                     <div className="relative flex justify-center text-sm">
-                        <span className="px-2 bg-white text-gray-500">Or continue with</span>
+                        <span className="px-2 bg-white text-gray-500 dark:bg-gray-700 dark:text-white">Or continue with</span>
                     </div>
                 </div>
                 <div className="mt-6 w-full">
@@ -112,12 +116,12 @@ export default function Login({ handleSwitch }: Prop) {
                         Sign in with Google
                     </button>
                 </div>
-                <div className='text-center text-gray-500 mt-3'>
+                <div className='text-center text-gray-500 mt-3 dark:text-white'>
                     <div>
-                        Don't have an account? <span onClick={handleSwitch} className='text-blue-700 cursor-pointer font-semibold hover:underline'>Sign up</span>
+                        Don't have an account? <span onClick={handleSwitch} className='text-blue-700 cursor-pointer font-semibold hover:underline dark:text-blue-400'>Sign up</span>
                     </div>
-                    <div className="text-center text-gray-500 mt-3">
-                        Send Code via <Link to="/otp" className='text-blue-700 cursor-pointer font-semibold hover:underline'>Email</Link>
+                    <div className="text-center text-gray-500 mt-3 dark:text-white">
+                        Send Code via <Link to="/otp" className='text-blue-700 cursor-pointer font-semibold hover:underline dark:text-blue-400'>Email</Link>
                     </div>
                 </div>
             </div>
