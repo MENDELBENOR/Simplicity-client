@@ -23,7 +23,7 @@ export const errorFromServer = (message: string) => {
 export const successFromServer = (message: string) => {
     toast.success(message, {
         duration: 3000,
-        id: 'succesMessage',
+        id: 'successMessage',
         position: "top-center",
     });
 };
