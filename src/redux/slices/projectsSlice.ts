@@ -15,7 +15,7 @@ const initialState: ProjectState = {
 
 export const initialProjects = createAsyncThunk<IProject[], void>('projects/initialProjects', async () => {
     try {
-        const response = await axios.get(`http://localhost:3001/project/getAllProjets`, { withCredentials: true });
+        const response = await axios.get(`http://localhost:3001/project/getAllProjects`, { withCredentials: true });
         if (response.data.isSuccessful)
             return response.data.data;
     } catch (err) {
