@@ -27,4 +27,18 @@ export type UserSignUp = {
 export type Credentials = {
     email: string,
     password: string
-} 
+}
+
+export interface IProject {
+    _id: string,
+    name: string,
+    description: string,
+    icon: string
+}
+
+export type NewProject = {
+    name: string;          
+    description: string;   
+    icon?: string;         
+}
+
