@@ -18,7 +18,6 @@ export default function SignUp({ handleSwitch }: Prop) {
     const handleSignUp = (e: React.FormEvent) => {
         e.preventDefault();
         createUser({ firstName, lastName, email, phone, password });
-
     };
 
     return (
