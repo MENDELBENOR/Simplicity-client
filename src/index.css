@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@media (min-width: 537px) {
+    .custom-text-size {
+        font-size: 16px;
+    }
+}

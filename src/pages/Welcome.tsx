@@ -3,6 +3,7 @@ import loginImg from '../assets/login.jpg';
 import signImg from '../assets/sign-in.jpg';
 import SignUp from '../components/SignUp';
 import Login from '../components/Login';
+import ModeLight from '../components/ModeLight';
 
 export default function Welcome() {
     const [showLogin, setShowLogin] = useState<boolean>(true);
@@ -24,6 +25,10 @@ export default function Welcome() {
                         </div>
                     </div>
                 </>
+            </div>
+
+            <div className='absolute top-2 left-2'>
+                <ModeLight />
             </div>
         </div>
     );

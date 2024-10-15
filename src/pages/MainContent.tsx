@@ -20,10 +20,11 @@ export default function MainContent() {
         return <p>loding...</p>
 
     return (
-        <div className="w-full h-screen bg-gray-300 mt-9 p-2 sm:p-10 flex flex-col items-center dark:bg-gray-800">
+        <div className="w-full h-screen bg-gray-300 mt-9 sm:p-10 flex flex-col items-center dark:bg-gray-800">
+            <div className="flex w-[80%] justify-end p-4 text-2xl font-bold text-gray-600 dark:text-white">{users.length} users active</div>
             <div className="w-[80%] flex items-center justify-between">
                 <CreateUser />
-                <div className="flex space-x-4"><ButtonExport /><Search /></div>
+                <div className="flex space-x-4 ml-2"><ButtonExport /><Search /></div>
             </div>
             <Table users={users} />
         </div>
