@@ -1,8 +1,19 @@
 import React, { useState, useRef } from 'react';
+import { useParams } from 'react-router-dom'; 
+import { BASEURL } from '../hooks/UseUsers';
+import { useNavigate } from 'react-router-dom'; 
+import { errorFromServer, successFromServer } from '../utils/toast';
+import axios from 'axios';
+
 
 const NumberInputForm: React.FC = () => {
+
+  const { email } = useParams<{ email: string }>();
   const [values, setValues] = useState<string[]>(Array(6).fill(''));
   const inputsRef = useRef<Array<HTMLInputElement | null>>([]);
+  const [loadind, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleChange = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -26,9 +37,21 @@ const NumberInputForm: React.FC = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert(`Code sent: ${values.join('')}`);
+    
+    try {
+      const otp = values.join('');
+      const response = await axios.post(`${BASEURL}verifyOTP`, { otp, email }, { withCredentials: true });
+      if (response.data.isSuccessful) {
+        successFromServer(response.data.displayMessage);
+        navigate('/users');
+      }
+    } catch (err){
+      errorFromServer("Error in verify OTP");
+    }
+
+
   };
 
   const handleResend = () => {
@@ -66,7 +89,7 @@ const NumberInputForm: React.FC = () => {
               type="submit"
               className="w-full inline-flex justify-center whitespace-nowrap rounded-lg bg-indigo-500 px-3.5 py-2.5 text-sm font-medium text-white shadow-sm shadow-indigo-950/10 hover:bg-indigo-600 focus:outline-none focus:ring focus:ring-indigo-300 transition-colors duration-150"
             >
-              Send Code
+             {loadind ? 'Sending...':'Send code'}
             </button>
           </div>
         </form>

@@ -9,11 +9,18 @@ export interface IUser {
     icon: string,
 }
 
+export interface IGroup {
+    _id: string;
+    name: string;
+    description: string;
+    projectId: string;
+}
+
 export type UserUpdate = {
     firstName: string,
     lastName: string,
     phone: string,
-    _id: strung,
+    _id: string,
 }
 
 export type UserSignUp = {
@@ -21,10 +28,35 @@ export type UserSignUp = {
     lastName: string,
     phone: string,
     email: string,
-    password: strung
+    password: string
 }
 
 export type Credentials = {
     email: string,
     password: string
-} 
+}
+
+export interface IProject {
+    _id: string,
+    name: string,
+    description: string,
+    icon: string
+}
+
+export type NewProject = {
+    name: string;          
+    description: string;   
+    icon?: string;         
+}
+
+export type Project = {
+    name: string,
+    description: string,
+    icon: string,
+}
+
+export type SideBar2Props = {
+    projectList: Project[];
+  };
+
+
