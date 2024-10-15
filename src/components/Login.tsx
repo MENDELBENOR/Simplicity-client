@@ -120,13 +120,8 @@ export default function Login({ handleSwitch }: Prop) {
                     <div>
                         Don't have an account? <span onClick={handleSwitch} className='text-blue-700 cursor-pointer font-semibold hover:underline dark:text-blue-400'>Sign up</span>
                     </div>
-<<<<<<< HEAD
                     <div className="text-center text-gray-500 mt-3">
                         Send Code via <Link to="/sendEmail" className='text-blue-700 cursor-pointer font-semibold hover:underline'>Email</Link>
-=======
-                    <div className="text-center text-gray-500 mt-3 dark:text-white">
-                        Send Code via <Link to="/otp" className='text-blue-700 cursor-pointer font-semibold hover:underline dark:text-blue-400'>Email</Link>
->>>>>>> a6e8b356be96fcb8d5c04f35923ad6e9a91d50b5
                     </div>
                 </div>
             </div>
