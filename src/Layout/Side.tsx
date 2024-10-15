@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { TbLogout } from "react-icons/tb";
 import UseUsers from '../hooks/UseUsers';
-import UseProjects from '../hooks/UseProjects';
 import { Project } from '../utils/types';
 import SideBar2 from './SideBar2';
 
@@ -12,18 +11,18 @@ interface SideProps {
 
 const Side: React.FC<SideProps> = ({ isOpen }) => {
   const [projectList, setProjectList] = useState<Project[]>([]);
-  const { getProjects } = UseProjects();
   const [viewProjects, setViewProjects] = useState(false);
 
   const handleProjectList = async () => {
     // הגדר את viewProjects ל-true בכל לחיצה
     setViewProjects(true);
     // קבל את הפרויקטים, אך לא תמתין לתוצאה לפני פתיחת ה-SideBar2
-    await getProjects(setProjectList);
+    //await getProjects(setProjectList);
   
   };
 
   const { logout } = UseUsers();
+  
   
   return (
     <>
@@ -68,8 +67,9 @@ const Side: React.FC<SideProps> = ({ isOpen }) => {
       </aside>
 
       {/* תפריט צד נוסף להציג את רשימת הפרויקטים */}
-      {viewProjects && <SideBar2 projectList={projectList} />}
+      {viewProjects && <SideBar2 projectList={projectList}/>}
     </>
+    
   );
 };
 
