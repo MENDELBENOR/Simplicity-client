@@ -19,7 +19,7 @@ export default function Search() {
         <input
             type="text"
             placeholder="Search"
-            className="block w-full p-2 border border-gray-300 rounded-md focus:outline-none ring-2 focus:ring-blue-500 transition duration-150"
+            className="block w-full p-2 border border-gray-300 rounded-md focus:outline-none ring-2 focus:ring-blue-500 transition duration-150 dark:bg-transparent dark:text-white dark:placeholder:text-gray-200"
             onChange={handleChange}
             required
         />

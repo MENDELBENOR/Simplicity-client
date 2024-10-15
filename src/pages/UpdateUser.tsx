@@ -31,9 +31,7 @@ const UpdateUser = ({ setPopUpdateUser, data }: Prop) => {
     event.preventDefault();
     if (!validFirstName(user.firstName) || !validLastName(user.lastName) || !validPhone(user.phone)) return;
 
-    setPopUpdateUser(false)
-
-
+    setPopUpdateUser(false);
     // function to sand update user
     updateUser(user)
   };
