@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { TbLogout } from "react-icons/tb";
 import UseUsers from '../hooks/UseUsers';
 import UseProjects from '../hooks/UseProjects';
-import { Project } from '../utils/types';
+import { IProject } from '../utils/types';
 import SideBar2 from './SideBar2';
 
 interface SideProps {
@@ -11,15 +11,15 @@ interface SideProps {
 }
 
 const Side: React.FC<SideProps> = ({ isOpen }) => {
-  const [projectList, setProjectList] = useState<Project[]>([]);
-  const { getProjects } = UseProjects();
+  const [projectList, setProjectList] = useState<IProject[]>([]);
+  const { getAllProjects } = UseProjects();
   const [viewProjects, setViewProjects] = useState(false);
 
   const handleProjectList = async () => {
     // הגדר את viewProjects ל-true בכל לחיצה
     setViewProjects(true);
     // קבל את הפרויקטים, אך לא תמתין לתוצאה לפני פתיחת ה-SideBar2
-    await getProjects(setProjectList);
+    await getAllProjects(setProjectList);
   
   };
 
