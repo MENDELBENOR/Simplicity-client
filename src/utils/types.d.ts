@@ -49,10 +49,6 @@ export type NewProject = {
     icon?: string;         
 }
 
-
-<<<<<<< HEAD
-} 
-
 export type Project = {
     name: string,
     description: string,
@@ -62,7 +58,5 @@ export type Project = {
 export type SideBar2Props = {
     projectList: Project[];
   };
-=======
-}
 
->>>>>>> 1a64ec7a5b3008f6b9ad10edc8bad88041122f56
+
