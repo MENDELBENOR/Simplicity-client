@@ -34,7 +34,7 @@ export default function UseUsers() {
       if (response.data.isSuccessful)
         dispatch(setUsers(response.data.data));
     } catch (err) {
-      console.log('Failed to search for user', err);
+      dispatch(setUsers([]));
     }
   }
 
@@ -96,7 +96,7 @@ export default function UseUsers() {
       }
     } catch (err) {
       if (axios.isAxiosError(err))
-        errorFromServer(err.response?.data.displayMessage);      
+        errorFromServer(err.response?.data.displayMessage);
     }
   }
   //logout
