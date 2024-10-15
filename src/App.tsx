@@ -10,6 +10,7 @@ import { AppDispatch } from './redux/store';
 import { initialUser } from './redux/slices/userSlice';
 import NumberInputForm from './pages/NumberInputForm';
 import SendEmailOtp from './components/SendEmailOtp';
+import TaskPage from './pages/TaskPage';
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -27,8 +28,8 @@ function App() {
         <Route path="/otp/:email" element={<NumberInputForm />} />
         <Route element={<Layout />}>
           <Route path='/users' element={<MainContent />} />
+          <Route path='/task/:id' element={<TaskPage />} />
           <Route path='/about' element={<div>About Page</div>} />
-          <Route path='/contact' element={<div>Contact Page</div>} />
           <Route path='/profile' element={<div>Profile Page</div>} />
           <Route path='/dev' element={<div>Dev Page</div>} />
         </Route>

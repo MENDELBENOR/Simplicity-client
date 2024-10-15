@@ -1,14 +1,14 @@
 import axios from 'axios';
-import { errorFromServer, successFromServer } from '../utils/toast';
+import { errorFromServer } from '../utils/toast';
 import { IGroup } from '../utils/types';
 
 const BASEURL = "http://localhost:3001/group/";
 
 export default function useGroup() {
 
-    const getAllGroup = async (setGroup: React.Dispatch<React.SetStateAction<IGroup[]>>) => {
+    const getGroupsByProject = async (setGroup: React.Dispatch<React.SetStateAction<IGroup[]>>, _id: string) => {
         try {
-            const response = await axios(`${BASEURL}getAllGroups`, { withCredentials: true })
+            const response = await axios(`${BASEURL}getGroupsByProject/${_id}`, { withCredentials: true })
             if (response.data.isSuccessful)
                 setGroup(response.data.data);
         } catch (err) {
@@ -17,7 +17,7 @@ export default function useGroup() {
             setGroup([]);
         }
     }
-    return { getAllGroup }
+    return { getGroupsByProject }
 }
 
 
