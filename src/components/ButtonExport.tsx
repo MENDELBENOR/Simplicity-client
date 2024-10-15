@@ -5,9 +5,10 @@ import { Buffer } from 'buffer';
 const ButtonExport: React.FC = () => {
   const handleExport = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/api/users/export');
+      const response = await axios.get('http://localhost:3001/api/export', {withCredentials:true});
       console.log(response);
-
+      
+      
       // בדיקה אם התגובה הייתה מוצלחת
       if (response.status !== 200 || !response.data.isSuccessful) {
         throw new Error('Network response was not ok');
