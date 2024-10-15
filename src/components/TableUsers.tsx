@@ -46,14 +46,14 @@ const Table = ({ users }: Prop) => {
   };
 
   if (!users || users.length === 0) {
-    return <p>No users found.</p>;
+    return <p className="mt-16 text-2xl dark:text-white">No users found.</p>;
   }
 
   if (loading) return <Loading />
 
   return (
-    <>
-      <table className="min-w-[400px] w-[80%] text-center overflow-x-auto border-separate border-spacing-y-2">
+    <div className="w-[80%] overflow-x-auto mt-2">
+      <table className="min-w-[400px] w-[99%] text-center border-separate border-spacing-y-2">
         <thead>
           <tr className="bg-white dark:bg-gray-600 dark:text-white">
             <th className="p-2 cursor-pointer">Icon</th>
@@ -146,7 +146,7 @@ const Table = ({ users }: Prop) => {
           data={selectedUser}
         />
       )}
-    </>
+    </div>
   );
 };
 

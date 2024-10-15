@@ -84,7 +84,7 @@ const CreateUser: React.FC = () => {
         <div>
             <button
                 onClick={() => setIsOpen(true)}
-                className="px-4 py-2 bg-blue-500 text-white rounded-md"
+                className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded shadow-lg transition duration-300 ease-in-out hover:-translate hover:scale-105 text-[9px] custom-text-size"
             >
                 Create user
             </button>

@@ -16,7 +16,7 @@ export default function ModeLight() {
 
     return (
         <button
-            className='w-12 h-12 hover:w-14 hover:h-14 transform transition-all duration-300 ease-in-out'
+            className='w-12 h-12'
             onClick={() => dispatch(toggleTheme())}
         >
             {/* Conditionally render the image based on the current theme */}
