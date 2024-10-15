@@ -25,6 +25,7 @@ const Side: React.FC<SideProps> = ({ isOpen }) => {
 
   const { logout } = UseUsers();
   
+  
   return (
     <>
       {/* התפריט הראשי */}
@@ -68,8 +69,9 @@ const Side: React.FC<SideProps> = ({ isOpen }) => {
       </aside>
 
       {/* תפריט צד נוסף להציג את רשימת הפרויקטים */}
-      {viewProjects && <SideBar2 projectList={projectList} />}
+      {viewProjects && <SideBar2 projectList={projectList}/>}
     </>
+    
   );
 };
 
