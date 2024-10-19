@@ -16,7 +16,8 @@ const Footer = ({ isAsideOpen }: Prop) => {
           Website <FaExternalLinkAlt />
         </NavLink>
       </div>
-      <h3 className={`text-sm flex gap-2 items-center mt-4 sm:mt-0 transition-transform duration-500 ease-in-out ${isAsideOpen ? 'mr-[150px]' : 'mr-0'}`}>
+      <h3 className={`text-sm flex gap-2 items-center mt-4 sm:mt-0 transition-transform duration-500 ease-in-out
+         ${isAsideOpen ? 'mr-[150px]' : 'mr-0'}`}>
         Simplicity <LiaCopyrightSolid /> 2024
       </h3>
     </footer>
@@ -24,3 +25,5 @@ const Footer = ({ isAsideOpen }: Prop) => {
 }
 
 export default Footer;
+
+
