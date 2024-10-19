@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { TbLogout } from "react-icons/tb";
 import UseUsers from '../hooks/UseUsers';
-import { Project } from '../utils/types';
+import UseProjects from '../hooks/UseProjects';
+import { IProject } from '../utils/types';
 import SideBar2 from './SideBar2';
 
 interface SideProps {
@@ -10,20 +11,32 @@ interface SideProps {
 }
 
 const Side: React.FC<SideProps> = ({ isOpen }) => {
-  const [projectList, setProjectList] = useState<Project[]>([]);
+  const [projectList, setProjectList] = useState<IProject[]>([]);
+  const { getAllProjects } = UseProjects();
   const [viewProjects, setViewProjects] = useState(false);
 
   const handleProjectList = async () => {
+    if (viewProjects) {
+      setViewProjects(false);
+      return;
+    }
+
     // הגדר את viewProjects ל-true בכל לחיצה
     setViewProjects(true);
     // קבל את הפרויקטים, אך לא תמתין לתוצאה לפני פתיחת ה-SideBar2
-    //await getProjects(setProjectList);
-  
+    await getAllProjects(setProjectList);
+
   };
 
+  // when you colse the nav, the project nav close to
+  useEffect(() => {
+    if (!isOpen)
+      setViewProjects(false);
+  }, [isOpen])
+
   const { logout } = UseUsers();
-  
-  
+
+
   return (
     <>
       {/* התפריט הראשי */}
@@ -67,9 +80,9 @@ const Side: React.FC<SideProps> = ({ isOpen }) => {
       </aside>
 
       {/* תפריט צד נוסף להציג את רשימת הפרויקטים */}
-      {viewProjects && <SideBar2 projectList={projectList}/>}
+      {viewProjects && <SideBar2 projectList={projectList} />}
     </>
-    
+
   );
 };
 
