@@ -16,7 +16,7 @@ const UpdateProjects = ({data, setPopUpdate}:Prop) => {
         description: data.description,
         icon: data.icon
     });
-
+        
     const valid = (text: string) => {
         return text.length > 1 ;
     }
@@ -34,7 +34,8 @@ const UpdateProjects = ({data, setPopUpdate}:Prop) => {
     }
 
     const handleSubmit = ()=> {
-        updateProjects(project)
+        updateProjects(project);
+        setPopUpdate(false);
     }
 
   return (
@@ -57,9 +58,9 @@ const UpdateProjects = ({data, setPopUpdate}:Prop) => {
 
       <h1 className="text-2xl font-semibold text-center text-gray-800 mb-5">Update Project</h1>
 
-      <div className="mb-4">
+      <div className="mb-4 text-black">
         <InputField
-          id="Project name"
+          id="Projectname"
           label="Project name"
           type="text"
           value={project.name}
@@ -69,9 +70,9 @@ const UpdateProjects = ({data, setPopUpdate}:Prop) => {
         />
       </div>
 
-      <div className="mb-4">
+      <div className="mb-4  text-black">
         <InputField
-          id="description"
+          id="description111"
           label="description"
           type="text"
           value={project.description}
@@ -81,14 +82,14 @@ const UpdateProjects = ({data, setPopUpdate}:Prop) => {
         />
       </div>
 
-      <div className="mb-4">
+      <div className="mb-4  text-black">
         <InputField
-          id="icon"
+          id="icon111"
           label="icon"
           type="text"
           value={project.icon}
           placeholder="icon"
-          isValid={()=> true}
+          isValid={()=>true}
           onChange={handleChangeIcon}
         />
       </div>

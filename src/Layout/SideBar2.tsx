@@ -6,6 +6,7 @@ import { MdNavigateNext } from "react-icons/md";
 import { LiaEdit } from "react-icons/lia";
 import { RiDeleteBin7Line } from "react-icons/ri";
 import Groups from '../components/Groups';
+import UpdateProjects from '../components/UpdateProjects';
 
 interface SideBar2Props {
   projectList: IProject[];
@@ -14,11 +15,19 @@ interface SideBar2Props {
 const SideBar2: React.FC<SideBar2Props> = ({ projectList }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [expandedProjectId, setExpandedProjectId] = useState<string | null>(null);
+  const [popUpdate, setPopUpdate] = useState(false);
+  const [data, setData] = useState(projectList[0]);
 
   const { createProject } = UseProjects();
 
   const handleToggleGroup = (projectId: string) => {
     setExpandedProjectId(prevId => prevId === projectId ? null : projectId);
+  }
+
+  const handleUpdateProject = (project: IProject)=>{
+    setPopUpdate(true);
+    setData(project);
+
   }
 
   return (
@@ -55,7 +64,7 @@ const SideBar2: React.FC<SideBar2Props> = ({ projectList }) => {
                   {project.name}
                 </span>
                 <span className='flex items-center'>
-                  <p className='p-[2px] mr-1 hover:bg-slate-400 rounded-lg transition duration-300'><LiaEdit /></p>
+                  <p className='p-[2px] mr-1 hover:bg-slate-400 rounded-lg transition duration-300'><LiaEdit onClick={()=> handleUpdateProject(project)} /></p>
                   <p className='p-[2px] mr-1 hover:bg-slate-400 rounded-lg transition duration-300'><RiDeleteBin7Line /></p>
                 </span>
               </div>
@@ -75,6 +84,7 @@ const SideBar2: React.FC<SideBar2Props> = ({ projectList }) => {
           setIsPopupOpen(false);
         }}
       />
+      {popUpdate && (<UpdateProjects setPopUpdate={setPopUpdate} data={data}/>)}
     </aside>
   );
 }
