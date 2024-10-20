@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { IGroup, UpdateGroupType } from '../utils/types';
 import useGroup from "../hooks/useGroup";
-import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import SingleGroup from "./SingleGroup";
 import UpdateGroup from "./UpdateGroup"; 
