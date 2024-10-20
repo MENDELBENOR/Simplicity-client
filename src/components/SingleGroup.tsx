@@ -1,6 +1,7 @@
 import { IGroup } from "../utils/types";
 import { LiaEdit } from "react-icons/lia";
 import { RiDeleteBin7Line } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
 type Prop = {
     group: IGroup;
@@ -9,8 +10,12 @@ type Prop = {
 }
 
 export default function SingleGroup({ group, onEdit }: Prop) {
+    const navigate = useNavigate();
     return (
-        <div className='bg-gray-600 px-2 py-2 my-1 rounded-lg flex items-center justify-between hover:bg-gray-700 transition duration-200'>
+        <div className='bg-gray-600 px-2 py-2 my-1 cursor-pointer rounded-lg flex items-center justify-between hover:bg-gray-900 transition duration-200'
+            onClick={() => {
+                navigate(`/task/${group._id}`)
+            }}>
             <span className='flex items-center'>{group.name}</span>
             <span className='flex items-center'>
                 <p
