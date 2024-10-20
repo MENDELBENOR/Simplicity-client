@@ -34,6 +34,7 @@ export default function UseUsers() {
       if (response.data.isSuccessful)
         dispatch(setUsers(response.data.data));
     } catch (err) {
+      console.log(err);
       dispatch(setUsers([]));
     }
   }
