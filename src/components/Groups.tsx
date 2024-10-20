@@ -12,7 +12,6 @@ type Props = {
 
 export default function Groups({ projectId }: Props) {
     const { getGroupsByProject, updateGroup } = useGroup(); // יש לוודא שה-import של updateGroup הוא מה-hook
-    const navigate = useNavigate();
     const [groups, setGroups] = useState<IGroup[]>([]);
     const [isUpdatePopupOpen, setUpdatePopupOpen] = useState(false);
     const [selectedGroup, setSelectedGroup] = useState<IGroup | null>(null);
