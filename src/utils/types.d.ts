@@ -58,10 +58,24 @@ export type Project = {
 export type SideBar2Props = {
     projectList: Project[];
 };
+<<<<<<< HEAD
 
 export type UpdateGroupType = {
     name: string;
     description: string;
     _id: string,
 }
+=======
+
+export interface ITask {
+    _id: string;
+    name: string;
+    description: string;
+    status: "TO DO" | "IN PROGRESS" | "COMPLETE";
+    duration: number;
+    groupId: string;
+}
+
+
+>>>>>>> tableTask
 

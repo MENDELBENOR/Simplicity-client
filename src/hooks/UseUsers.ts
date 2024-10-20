@@ -34,6 +34,7 @@ export default function UseUsers() {
       if (response.data.isSuccessful)
         dispatch(setUsers(response.data.data));
     } catch (err) {
+      console.log(err);
       dispatch(setUsers([]));
     }
   }
@@ -71,7 +72,9 @@ export default function UseUsers() {
       if (axios.isAxiosError(err))
         errorFromServer(err.response?.data.displayMessage)
     }
-    setLoading(false);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1500)
   };
 
   const createUser = async (user: UserSignUp) => {

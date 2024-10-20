@@ -3,7 +3,7 @@ import { IGroup, UpdateGroupType } from '../utils/types';
 import useGroup from "../hooks/useGroup";
 import { motion } from "framer-motion";
 import SingleGroup from "./SingleGroup";
-import UpdateGroup from "./UpdateGroup"; 
+import UpdateGroup from "./UpdateGroup";
 
 type Props = {
     projectId: string;
@@ -19,7 +19,7 @@ export default function Groups({ projectId }: Props) {
         const fetchGroups = async () => {
             await getGroupsByProject(setGroups, projectId);
         };
-        
+
         fetchGroups();
     }, [projectId]);
 
@@ -48,10 +48,10 @@ export default function Groups({ projectId }: Props) {
                         animate={{ x: 0, opacity: 1 }}
                         transition={{ delay: 0.3 * index }}
                     >
-                        <SingleGroup 
+                        <SingleGroup
                             group={group}
-                            onEdit={() => handleEditGroup(group._id)} 
-                            // onDelete={() => handleDeleteGroup(group._id)} 
+                            onEdit={() => handleEditGroup(group._id)}
+                        // onDelete={() => handleDeleteGroup(group._id)} 
                         />
                     </motion.div>
                 ))
