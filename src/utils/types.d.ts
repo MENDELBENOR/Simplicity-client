@@ -44,9 +44,9 @@ export interface IProject {
 }
 
 export type NewProject = {
-    name: string;          
-    description: string;   
-    icon?: string;         
+    name: string;
+    description: string;
+    icon?: string;
 }
 
 export type Project = {
@@ -57,7 +57,16 @@ export type Project = {
 
 export type SideBar2Props = {
     projectList: Project[];
-  };
+};
 
-  
+export interface ITask {
+    _id: string;
+    name: string;
+    description: string;
+    status: "TO DO" | "IN PROGRESS" | "COMPLETE";
+    duration: number;
+    groupId: string;
+}
+
+
 

@@ -28,12 +28,12 @@ export default function Groups({ projectId }: Props) {
             {groups.map((group, index) => (
                 <motion.div
                     key={group._id}
-                    initial={{ x: -10, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ delay: 0.3 * index }}
+                    initial={{ y: -10, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.2 * index }}
                 >
                     {/* when you click we to to task page with the id in the params */}
-                    <div className="flex pl-4 py-1 hover:bg-gray-600 rounded mt-1 mr-1 cursor-pointer transition duration-200"
+                    <div className="flex pl-4 py-1 bg-gray-600 hover:bg-[#3c4858] rounded mt-1 mr-1 cursor-pointer transition duration-200"
                         onClick={() => navigatePage(group._id)}
                     >
                         <span>{group.name}</span>

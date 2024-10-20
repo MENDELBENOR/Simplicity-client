@@ -71,7 +71,9 @@ export default function UseUsers() {
       if (axios.isAxiosError(err))
         errorFromServer(err.response?.data.displayMessage)
     }
-    setLoading(false);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1500)
   };
 
   const createUser = async (user: UserSignUp) => {
