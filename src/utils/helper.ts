@@ -20,3 +20,10 @@ export const validPhone = (phone: string): boolean => {
    return validator.isMobilePhone(phone, 'any');
 }
 
+export const validGroupName = (name: string): boolean => {
+    return name.length > 2;
+}
+
+export const validDescription = (description: string): boolean => {
+    return description.length > 5;
+}

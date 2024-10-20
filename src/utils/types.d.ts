@@ -44,9 +44,9 @@ export interface IProject {
 }
 
 export type NewProject = {
-    name: string;          
-    description: string;   
-    icon?: string;         
+    name: string;
+    description: string;
+    icon?: string;
 }
 
 export type Project = {
@@ -57,7 +57,11 @@ export type Project = {
 
 export type SideBar2Props = {
     projectList: Project[];
-  };
+};
 
-  
+export type UpdateGroupType = {
+    name: string;
+    description: string;
+    _id: string,
+}
 
