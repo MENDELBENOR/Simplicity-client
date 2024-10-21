@@ -28,8 +28,11 @@ const tasksSlice = createSlice({
         addTask: (state, action: PayloadAction<ITask>) => {
             state.tasks.push(action.payload);
         },
-        removeUser: (state, action: PayloadAction<string>) => {
-            state.tasks = state.tasks.filter((task: ITask) => task._id !== action.payload);
+        updateTask: (state, action: PayloadAction<ITask>) => {
+            const index = state.tasks.findIndex((task: ITask) => task._id === action.payload._id);
+            if (index !== -1) {
+                state.tasks[index] = action.payload;
+            }
         },
         removeTask: (state, action: PayloadAction<ITask>) => {
             const index = state.tasks.findIndex((task: ITask) => task._id === action.payload._id);
@@ -51,5 +54,5 @@ const tasksSlice = createSlice({
     },
 });
 
-export const { addTask, removeTask, setTasks } = tasksSlice.actions;
+export const { addTask, removeTask, setTasks, updateTask } = tasksSlice.actions;
 export default tasksSlice.reducer;
