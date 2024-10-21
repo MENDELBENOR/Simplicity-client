@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { ITask } from '../../utils/types';
 import axios from 'axios';
+import { ITask } from '../../utils/types';
 
 interface taskState {
     tasks: ITask[];
@@ -12,7 +12,7 @@ const initialState: taskState = {
 
 export const initialTasks = createAsyncThunk('tasks/initialTask', async (groupId: string) => {
     try {
-        const response = await axios.get(`http://localhost:3001/task/getTaskByGroup${groupId}`, {
+        const response = await axios.get(`http://localhost:3001/task/getTaskByGroup/${groupId}`, {
             withCredentials: true
         });
         return response.data.data;
@@ -29,12 +29,12 @@ const tasksSlice = createSlice({
             state.tasks.push(action.payload);
         },
         removeUser: (state, action: PayloadAction<string>) => {
-            state.tasks = state.tasks.filter(task => task._id !== action.payload);
+            state.tasks = state.tasks.filter((task: ITask) => task._id !== action.payload);
         },
         removeTask: (state, action: PayloadAction<ITask>) => {
-            const index = state.tasks.findIndex(task => task._id === action.payload._id);
+            const index = state.tasks.findIndex((task: ITask) => task._id === action.payload._id);
             if (index !== -1) {
-                state.tasks[index] = action.payload;
+                state.tasks.splice(index, 1);  // Use splice to actually remove the task
             }
         },
         setTasks: (state, action: PayloadAction<ITask[]>) => {
