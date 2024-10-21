@@ -26,7 +26,7 @@ const CreateProject: React.FC<CreateProjectProps> = ({ onAddProject, isOpen, onC
     onAddProject(project);
     setProject({ name: '', description: '' });
   };
-  
+
   if (!isOpen) return null;
 
   return ReactDOM.createPortal(
