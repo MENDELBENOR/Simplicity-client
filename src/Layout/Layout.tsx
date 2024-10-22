@@ -5,7 +5,7 @@ import { Outlet } from 'react-router-dom';
 import Side from "./Side";
 
 const Layout: React.FC = () => {
-  const [isAsideOpen, setAsideOpen] = useState<boolean>(false); // התחל כנסתר
+  const [isAsideOpen, setAsideOpen] = useState<boolean>(true); // התחל כנסתר
 
   const toggleAside = () => {
     setAsideOpen(!isAsideOpen);
