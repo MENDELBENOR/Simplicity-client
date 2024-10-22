@@ -37,7 +37,7 @@ const tasksSlice = createSlice({
         removeTask: (state, action: PayloadAction<ITask>) => {
             const index = state.tasks.findIndex((task: ITask) => task._id === action.payload._id);
             if (index !== -1) {
-                state.tasks.splice(index, 1);  // Use splice to actually remove the task
+                state.tasks.splice(index, 1);
             }
         },
         setTasks: (state, action: PayloadAction<ITask[]>) => {
@@ -54,5 +54,5 @@ const tasksSlice = createSlice({
     },
 });
 
-export const { addTask, removeTask, setTasks, updateTask } = tasksSlice.actions;
+export const { addTask, updateTask, removeTask, setTasks } = tasksSlice.actions;
 export default tasksSlice.reducer;
