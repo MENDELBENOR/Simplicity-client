@@ -4,6 +4,7 @@ import { BsHourglass } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { FaRegDotCircle } from "react-icons/fa";
+import { RiDeleteBin7Line } from "react-icons/ri";
 import { CiEdit } from "react-icons/ci";
 import useTask from "../hooks/useTask";
 import { setTasks } from "../redux/slices/taskSlice";
@@ -17,7 +18,7 @@ const statusOptions = ["TO DO", "IN PROGRESS", "COMPLETE"];
 
 export default function TableTask({ tasks }: Prop) {
     const dispatch = useDispatch();
-    const { updateTaskGeneric } = useTask();
+    const { updateTaskGeneric, deleteTask } = useTask();
     const [activePopup, setActivePopup] = useState<string | null>(null);
     const [editValue, setEditValue] = useState<string>("");
 
@@ -71,7 +72,10 @@ export default function TableTask({ tasks }: Prop) {
         updateTaskGeneric(taskToUpdate);
     };
 
-    
+    const handeleDelete = (deleteId: string) => {
+        deleteTask(deleteId);
+    }
+
 
     const renderEditPopup = (
         taskId: string,
@@ -106,68 +110,69 @@ export default function TableTask({ tasks }: Prop) {
 
     //----------------------- drag -------------------------------
 
-      const [draggedItem, setDraggedItem] = useState<ITask | null>(null);
+    const [draggedItem, setDraggedItem] = useState<ITask | null>(null);
 
-  const handleDragStart = (e: React.DragEvent<HTMLTableRowElement>, task: ITask) => {
-    setDraggedItem(task);
-    e.currentTarget.classList.add('opacity-50');
-  };
+    const handleDragStart = (e: React.DragEvent<HTMLTableRowElement>, task: ITask) => {
+        setDraggedItem(task);
+        e.currentTarget.classList.add('opacity-50');
+    };
 
-  const handleDragEnd = (e: React.DragEvent<HTMLTableRowElement>) => {
-    e.currentTarget.classList.remove('opacity-50');
-    setDraggedItem(null);
-  };
+    const handleDragEnd = (e: React.DragEvent<HTMLTableRowElement>) => {
+        e.currentTarget.classList.remove('opacity-50');
+        setDraggedItem(null);
+    };
 
-  const handleDragOver = (e: React.DragEvent<HTMLTableRowElement>) => {
-    e.preventDefault();
-    const targetElement = e.currentTarget;
-    targetElement.style.borderBottom = '2px solid blue';
-  };
+    const handleDragOver = (e: React.DragEvent<HTMLTableRowElement>) => {
+        e.preventDefault();
+        const targetElement = e.currentTarget;
+        targetElement.style.borderBottom = '2px solid blue';
+    };
 
-  const handleDragLive = (e: React.DragEvent<HTMLTableRowElement>) => {
-    const targetElement = e.currentTarget;
-    targetElement.style.borderBottom = '1px solid #F3F4F6';
-  };
+    const handleDragLive = (e: React.DragEvent<HTMLTableRowElement>) => {
+        const targetElement = e.currentTarget;
+        targetElement.style.borderBottom = '1px solid #F3F4F6';
+    };
 
-  const handleDrop = (e: React.DragEvent<HTMLTableRowElement>, targetTask: ITask) => {
-    e.preventDefault();
-    
-    if (!draggedItem || draggedItem._id === targetTask._id) return;
+    const handleDrop = (e: React.DragEvent<HTMLTableRowElement>, targetTask: ITask) => {
+        e.preventDefault();
 
-    const newTasks = [...tasks];
-    const draggedIndex = tasks.findIndex(task => task._id === draggedItem._id);
-    const targetIndex = tasks.findIndex(task => task._id === targetTask._id);
-    
-    newTasks.splice(draggedIndex, 1);
-    newTasks.splice(targetIndex, 0, draggedItem);
+        if (!draggedItem || draggedItem._id === targetTask._id) return;
 
-    dispatch(setTasks(newTasks));
-    const targetElement = e.currentTarget;
-    targetElement.style.borderBottom = '1px solid #F3F4F6';
-  };
+        const newTasks = [...tasks];
+        const draggedIndex = tasks.findIndex(task => task._id === draggedItem._id);
+        const targetIndex = tasks.findIndex(task => task._id === targetTask._id);
+
+        newTasks.splice(draggedIndex, 1);
+        newTasks.splice(targetIndex, 0, draggedItem);
+
+        dispatch(setTasks(newTasks));
+        const targetElement = e.currentTarget;
+        targetElement.style.borderBottom = '1px solid #F3F4F6';
+    };
 
     return (
-        <table className="min-w-[400px] w-[99%] border-spacing-y-2 text-[15px] overflow-x-auto">
+        <table className="min-w-[400px] w-[99%] sm:w-[80%]  border-spacing-y-2 text-[15px] overflow-x-auto">
             <thead>
                 <tr className="bg-white dark:bg-gray-800 dark:text-white border-b-[1px] text-[15px] text-left text-gray-400 font-extralight">
                     <th className="p-2">Name</th>
                     <th className="p-2">Status</th>
                     <th className="p-2">Duration</th>
                     <th className="p-2">Description</th>
+                    <th className="p-2"></th>
                 </tr>
             </thead>
             <tbody>
                 {tasks.map((task) => (
                     <tr
-                    key={task._id}
-                    draggable={true}
-                    onDragStart={(e) => handleDragStart(e, task)}
-                    onDragEnd={handleDragEnd}
-                    onDragOver={handleDragOver}
-                    onDragLeave={handleDragLive}
-                    onDrop={(e) => handleDrop(e, task)}
-                    className="text-[13px] transition-transform duration-300 ease-in-out border-b-[1px] bg-white hover:bg-gray-100 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
-                >
+                        key={task._id}
+                        draggable={true}
+                        onDragStart={(e) => handleDragStart(e, task)}
+                        onDragEnd={handleDragEnd}
+                        onDragOver={handleDragOver}
+                        onDragLeave={handleDragLive}
+                        onDrop={(e) => handleDrop(e, task)}
+                        className="text-[13px] transition-transform duration-300 ease-in-out border-b-[1px] bg-white hover:bg-gray-100 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+                    >
                         <td className="px-2 py-2 flex items-center space-x-2 font-s relative">
                             <RiDraggable className="cursor-move" />
                             <span className="bg-transparent">
@@ -192,7 +197,7 @@ export default function TableTask({ tasks }: Prop) {
                                     setEditValue(task.name);
                                 }}
                             >
-                                <CiEdit />
+                                <CiEdit title="Rename" />
                             </span>
                             {activePopup === task._id + "_name" &&
                                 renderEditPopup(task._id, task.name, handleNameChange, "text")}
@@ -218,6 +223,7 @@ export default function TableTask({ tasks }: Prop) {
                                 </div>
                             ) : (
                                 <span
+                                    title="Edit"
                                     onClick={() => setActivePopup(task._id + "_status")}
                                     className={`inline-block px-2 py-1 rounded-md text-[13px] font-semibold cursor-pointer ${task.status === "COMPLETE"
                                         ? "bg-[#008141] text-white"
@@ -239,7 +245,7 @@ export default function TableTask({ tasks }: Prop) {
                                 }}
                                 className="flex items-center cursor-pointer"
                             >
-                                <BsHourglass className="mr-1" />
+                                <BsHourglass title="Edit" className="mr-1" />
                                 {task.duration}
                             </span>
                             {activePopup === task._id + "_duration" &&
@@ -248,6 +254,7 @@ export default function TableTask({ tasks }: Prop) {
 
                         <td className="px-2 py-1 relative">
                             <span
+                                title="Edit"
                                 onClick={() => {
                                     setActivePopup(task._id + "_description");
                                     setEditValue(task.description);
@@ -259,78 +266,18 @@ export default function TableTask({ tasks }: Prop) {
                             {activePopup === task._id + "_description" &&
                                 renderEditPopup(task._id, task.description, handleDescriptionChange, "text")}
                         </td>
+
+                        <td className="px-2 py-1">
+                            <span
+
+                                className="inline-block border-[1px] p-1 rounded-md bg-white cursor-pointer dark:text-black">
+                                <RiDeleteBin7Line onClick={() => { handeleDelete(task._id) }}
+                                    title="Delete" />
+                            </span>
+                        </td>
                     </tr>
                 ))}
             </tbody>
         </table>
     );
 }
-
-// import React, { useState } from 'react';
-
-// const DraggableList = () => {
-//   const [items, setItems] = useState([
-//     { id: 1, content: "🎵 Music Player" },
-//     { id: 2, content: "📱 Phone Settings" },
-//     { id: 3, content: "📸 Camera" },
-//     { id: 4, content: "🎮 Games" },
-//     { id: 5, content: "📚 Books" }
-//   ]);
-  
-//   const [draggedItem, setDraggedItem] = useState(null);
-
-//   const handleDragStart = (e, item) => {
-//     setDraggedItem(item);
-//     e.currentTarget.classList.add('opacity-50');
-//   };
-
-//   const handleDragEnd = (e) => {
-//     e.currentTarget.classList.remove('opacity-50');
-//     setDraggedItem(null);
-//   };
-
-//   const handleDragOver = (e) => {
-//     e.preventDefault();
-//   };
-
-//   const handleDrop = (e, targetItem) => {
-//     e.preventDefault();
-    
-//     if (!draggedItem || draggedItem.id === targetItem.id) return;
-
-//     const newItems = [...items];
-//     const draggedIndex = items.findIndex(item => item.id === draggedItem.id);
-//     const targetIndex = items.findIndex(item => item.id === targetItem.id);
-    
-//     newItems.splice(draggedIndex, 1);
-//     newItems.splice(targetIndex, 0, draggedItem);
-    
-//     setItems(newItems);
-//   };
-
-//   return (
-//     <div className="w-full max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg">
-//       <h2 className="text-xl font-bold mb-4 text-gray-800">Draggable List</h2>
-//       <ul className="space-y-2">
-//         {items.map(item => (
-//           <li
-//             key={item.id}
-//             draggable
-//             onDragStart={(e) => handleDragStart(e, item)}
-//             onDragEnd={handleDragEnd}
-//             onDragOver={handleDragOver}
-//             onDrop={(e) => handleDrop(e, item)}
-//             className="p-4 bg-white border border-gray-200 rounded-lg cursor-move hover:bg-gray-50 transition-colors duration-150 select-none"
-//           >
-//             <div className="flex items-center space-x-3">
-//               <div className="text-gray-400">⋮⋮</div>
-//               <span className="text-gray-800">{item.content}</span>
-//             </div>
-//           </li>
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// };
-
-// export default DraggableList;

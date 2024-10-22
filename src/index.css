@@ -13,3 +13,16 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+
+@keyframes slideDown {
+    from {
+        transform: translate(-50%, -100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(-50%, -50%);
+        opacity: 1;
+    }
+}

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { errorFromServer, successFromServer } from '../utils/toast';
 import { AppDispatch } from '../redux/store';
 import { useDispatch } from 'react-redux';
-import { addTask, updateTask } from '../redux/slices/taskSlice';
+import { addTask, removeTask, updateTask } from '../redux/slices/taskSlice';
 
 
 type taskType = {
@@ -53,7 +53,23 @@ export default function useTask() {
         }
     }
 
-    return { createTask, updateTaskGeneric }
+    const deleteTask = async (id: string) => {
+        try {
+            const response = await axios.post(`${BASEURL}deleteTask`, { id }, { withCredentials: true })
+            if (response.data.isSuccessful) {
+                dispatch(removeTask(response.data.data));
+                successFromServer(response.data.displayMessage);
+            }
+        }
+        catch (err) {
+            if (axios.isAxiosError(err))
+                errorFromServer(err.response?.data.displayMessage)
+        }
+    }
+
+
+
+    return { createTask, updateTaskGeneric, deleteTask }
 }
 
 
