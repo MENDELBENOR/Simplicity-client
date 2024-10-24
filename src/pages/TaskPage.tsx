@@ -23,7 +23,7 @@ export default function TaskPage() {
 
             <div className="w-[80%] flex items-center">
                 <button
-                    className="flex items-center py-1 px-2 rounded-md dark:text-white dark:border-[1px] dark:hover:bg-white dark:hover:text-gray-800"
+                    className="flex m-5 items-center py-1 px-2 rounded-md dark:text-white dark:border-[1px] dark:hover:bg-white dark:hover:text-gray-800"
                     onClick={() => {
                         setPopCreateTask(!popCreateTask);
                     }}><HiPlusSm /> Add task</button>

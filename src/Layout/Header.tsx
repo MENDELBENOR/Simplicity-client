@@ -12,7 +12,7 @@ const Header: React.FC<HeaderProps> = ({ toggleAside, isAsideOpen }: HeaderProps
   const user = useSelector((state: RootState) => state.user.user);
 
   return (
-    <header className="bg-gray-800 px-2 text-white flex justify-between items-center fixed top-0 w-full shadow-md">
+    <header className="bg-gray-800 px-2 text-white flex justify-between items-center fixed top-0 w-full shadow-md z-10">
       <ModeLight />
       <p className='p-2'>{user?.firstName}</p>
       <button
