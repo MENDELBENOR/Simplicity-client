@@ -151,133 +151,135 @@ export default function TableTask({ tasks }: Prop) {
     };
 
     return (
-        <table className="min-w-[400px] w-[99%] sm:w-[80%]  border-spacing-y-2 text-[15px] overflow-x-auto">
-            <thead>
-                <tr className="bg-white dark:bg-gray-800 dark:text-white border-b-[1px] text-[15px] text-left text-gray-400 font-extralight">
-                    <th className="p-2">Name</th>
-                    <th className="p-2">Status</th>
-                    <th className="p-2">Duration</th>
-                    <th className="p-2">Description</th>
-                    <th className="p-2"></th>
-                </tr>
-            </thead>
-            <tbody>
-                {tasks.map((task) => (
-                    <tr
-                        key={task._id}
-                        draggable={true}
-                        onDragStart={(e) => handleDragStart(e, task)}
-                        onDragEnd={handleDragEnd}
-                        onDragOver={handleDragOver}
-                        onDragLeave={handleDragLive}
-                        onDrop={(e) => handleDrop(e, task)}
-                        className="text-[13px] transition-transform duration-300 ease-in-out border-b-[1px] bg-white hover:bg-gray-100 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
-                    >
-                        <td className="px-2 py-2 flex items-center space-x-2 font-s relative">
-                            <RiDraggable className="cursor-move" />
-                            <span className="bg-transparent">
-                                {task.status === "COMPLETE" ? (
-                                    <span className="text-[#2fb170] text-lg">
-                                        <FaRegCircleCheck />
-                                    </span>
+        <div className="w-[90%] overflow-x-auto mt-2">
+            <table className="min-w-[400px] w-[99%] sm:w-[90%]  border-spacing-y-2 text-[15px] overflow-x-auto">
+                <thead>
+                    <tr className="bg-white dark:bg-gray-800 dark:text-white border-b-[1px] text-[15px] text-left text-gray-400 font-extralight">
+                        <th className="p-2">Name</th>
+                        <th className="p-2">Status</th>
+                        <th className="p-2">Duration</th>
+                        <th className="p-2">Description</th>
+                        <th className="p-2"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {tasks.map((task) => (
+                        <tr
+                            key={task._id}
+                            draggable={true}
+                            onDragStart={(e) => handleDragStart(e, task)}
+                            onDragEnd={handleDragEnd}
+                            onDragOver={handleDragOver}
+                            onDragLeave={handleDragLive}
+                            onDrop={(e) => handleDrop(e, task)}
+                            className="text-[13px] transition-transform duration-300 ease-in-out border-b-[1px] bg-white hover:bg-gray-100 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+                        >
+                            <td className="px-2 py-2 flex items-center space-x-2 font-s relative">
+                                <RiDraggable className="cursor-move" />
+                                <span className="bg-transparent">
+                                    {task.status === "COMPLETE" ? (
+                                        <span className="text-[#2fb170] text-lg">
+                                            <FaRegCircleCheck />
+                                        </span>
+                                    ) : (
+                                        <span
+                                            className={`${task.status === "IN PROGRESS" ? "text-[#5A51E2]" : "bg-[#DCDEE1] text-gray-400"
+                                                }`}
+                                        >
+                                            <FaRegDotCircle size={17} />
+                                        </span>
+                                    )}
+                                </span>
+                                <span className="w-full flex">{task.name}</span>
+                                <span
+                                    className="flex justify-end border-[1px] p-1 rounded-md bg-white cursor-pointer dark:text-white"
+                                    onClick={() => {
+                                        setActivePopup(task._id + "_name");
+                                        setEditValue(task.name);
+                                    }}
+                                >
+                                    <CiEdit className=" dark:text-black" title="Rename" />
+                                </span>
+                                {activePopup === task._id + "_name" &&
+                                    renderEditPopup(task._id, task.name, handleNameChange, "text")}
+                            </td>
+
+                            <td className="px-2 py-1 relative">
+                                {activePopup === task._id + "_status" ? (
+                                    <div className="absolute z-10 bg-white border rounded-md shadow-lg">
+                                        {statusOptions.map((status) => (
+                                            <div
+                                                key={status}
+                                                className={`px-4 py-2 cursor-pointer dark:bg-gray-600 transition transform duration-300 ${status === "COMPLETE"
+                                                    ? "hover:bg-[#008141] hover:text-white dark:hover:bg-[#008141] dark:hover:text-white"
+                                                    : status === "TO DO"
+                                                        ? "hover:bg-[#DCDEE1] hover:text-gray-700 dark:hover:bg-[#DCDEE1] dark:hover:text-gray-700"
+                                                        : "hover:bg-[#5A51E2] hover:text-white dark:hover:bg-[#5A51E2] dark:hover:text-white"
+                                                    }`}
+                                                onClick={() => handleStatusChange(task._id, status)}
+                                            >
+                                                {status}
+                                            </div>
+                                        ))}
+                                    </div>
                                 ) : (
                                     <span
-                                        className={`${task.status === "IN PROGRESS" ? "text-[#5A51E2]" : "bg-[#DCDEE1] text-gray-400"
+                                        title="Edit"
+                                        onClick={() => setActivePopup(task._id + "_status")}
+                                        className={`inline-block px-2 py-1 rounded-md text-[13px] font-semibold cursor-pointer ${task.status === "COMPLETE"
+                                            ? "bg-[#008141] text-white"
+                                            : task.status === "TO DO"
+                                                ? "bg-[#DCDEE1] text-gray-700"
+                                                : "bg-[#5A51E2] text-white"
                                             }`}
                                     >
-                                        <FaRegDotCircle size={17} />
+                                        {task.status}
                                     </span>
                                 )}
-                            </span>
-                            <span className="w-full flex">{task.name}</span>
-                            <span
-                                className="flex justify-end border-[1px] p-1 rounded-md bg-white cursor-pointer dark:text-white"
-                                onClick={() => {
-                                    setActivePopup(task._id + "_name");
-                                    setEditValue(task.name);
-                                }}
-                            >
-                                <CiEdit title="Rename" />
-                            </span>
-                            {activePopup === task._id + "_name" &&
-                                renderEditPopup(task._id, task.name, handleNameChange, "text")}
-                        </td>
+                            </td>
 
-                        <td className="px-2 py-1 relative">
-                            {activePopup === task._id + "_status" ? (
-                                <div className="absolute z-10 bg-white border rounded-md shadow-lg">
-                                    {statusOptions.map((status) => (
-                                        <div
-                                            key={status}
-                                            className={`px-4 py-2 cursor-pointer dark:bg-gray-600 transition transform duration-300 ${status === "COMPLETE"
-                                                ? "hover:bg-[#008141] hover:text-white dark:hover:bg-[#008141] dark:hover:text-white"
-                                                : status === "TO DO"
-                                                    ? "hover:bg-[#DCDEE1] hover:text-gray-700 dark:hover:bg-[#DCDEE1] dark:hover:text-gray-700"
-                                                    : "hover:bg-[#5A51E2] hover:text-white dark:hover:bg-[#5A51E2] dark:hover:text-white"
-                                                }`}
-                                            onClick={() => handleStatusChange(task._id, status)}
-                                        >
-                                            {status}
-                                        </div>
-                                    ))}
-                                </div>
-                            ) : (
+                            <td className="px-2 py-1 relative">
+                                <span
+                                    onClick={() => {
+                                        setActivePopup(task._id + "_duration");
+                                        setEditValue(task.duration.toString());
+                                    }}
+                                    className="flex items-center cursor-pointer"
+                                >
+                                    <BsHourglass title="Edit" className="mr-1" />
+                                    {task.duration}
+                                </span>
+                                {activePopup === task._id + "_duration" &&
+                                    renderEditPopup(task._id, task.duration.toString(), handleDurationChange, "number")}
+                            </td>
+
+                            <td className="px-2 py-1 relative">
                                 <span
                                     title="Edit"
-                                    onClick={() => setActivePopup(task._id + "_status")}
-                                    className={`inline-block px-2 py-1 rounded-md text-[13px] font-semibold cursor-pointer ${task.status === "COMPLETE"
-                                        ? "bg-[#008141] text-white"
-                                        : task.status === "TO DO"
-                                            ? "bg-[#DCDEE1] text-gray-700"
-                                            : "bg-[#5A51E2] text-white"
-                                        }`}
+                                    onClick={() => {
+                                        setActivePopup(task._id + "_description");
+                                        setEditValue(task.description);
+                                    }}
+                                    className="cursor-pointer"
                                 >
-                                    {task.status}
+                                    {task.description}
                                 </span>
-                            )}
-                        </td>
+                                {activePopup === task._id + "_description" &&
+                                    renderEditPopup(task._id, task.description, handleDescriptionChange, "text")}
+                            </td>
 
-                        <td className="px-2 py-1 relative">
-                            <span
-                                onClick={() => {
-                                    setActivePopup(task._id + "_duration");
-                                    setEditValue(task.duration.toString());
-                                }}
-                                className="flex items-center cursor-pointer"
-                            >
-                                <BsHourglass title="Edit" className="mr-1" />
-                                {task.duration}
-                            </span>
-                            {activePopup === task._id + "_duration" &&
-                                renderEditPopup(task._id, task.duration.toString(), handleDurationChange, "number")}
-                        </td>
+                            <td className="px-2 py-1">
+                                <span
 
-                        <td className="px-2 py-1 relative">
-                            <span
-                                title="Edit"
-                                onClick={() => {
-                                    setActivePopup(task._id + "_description");
-                                    setEditValue(task.description);
-                                }}
-                                className="cursor-pointer"
-                            >
-                                {task.description}
-                            </span>
-                            {activePopup === task._id + "_description" &&
-                                renderEditPopup(task._id, task.description, handleDescriptionChange, "text")}
-                        </td>
-
-                        <td className="px-2 py-1">
-                            <span
-
-                                className="inline-block border-[1px] p-1 rounded-md bg-white cursor-pointer dark:text-black">
-                                <RiDeleteBin7Line onClick={() => { handeleDelete(task._id) }}
-                                    title="Delete" />
-                            </span>
-                        </td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
+                                    className="inline-block border-[1px] p-1 rounded-md bg-white cursor-pointer dark:text-black">
+                                    <RiDeleteBin7Line onClick={() => { handeleDelete(task._id) }}
+                                        title="Delete" />
+                                </span>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
     );
 }
