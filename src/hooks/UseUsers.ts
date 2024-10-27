@@ -101,7 +101,9 @@ export default function UseUsers() {
       if (axios.isAxiosError(err))
         errorFromServer(err.response?.data.displayMessage);
     }
-  }
+  };
+
+
   //logout
   const logout = async (): Promise<void> => {
     try {

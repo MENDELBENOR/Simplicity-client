@@ -1,3 +1,4 @@
+// SideBar2.tsx
 import React, { useState } from 'react';
 import { NewProject, IProject } from '../utils/types';
 import CreateProject from '../pages/CreateProject';
@@ -6,6 +7,7 @@ import { MdNavigateNext } from "react-icons/md";
 import { LiaEdit } from "react-icons/lia";
 import { RiDeleteBin7Line } from "react-icons/ri";
 import Groups from '../components/Groups';
+import DeleteProject from '../components/DeleteProject';
 
 interface SideBar2Props {
   projectList: IProject[];
@@ -14,12 +16,24 @@ interface SideBar2Props {
 const SideBar2: React.FC<SideBar2Props> = ({ projectList }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [expandedProjectId, setExpandedProjectId] = useState<string | null>(null);
+  const [deletePopUp, setDeletePopUp] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<IProject | null>(null);
 
   const { createProject } = UseProjects();
 
   const handleToggleGroup = (projectId: string) => {
     setExpandedProjectId(prevId => prevId === projectId ? null : projectId);
-  }
+  };
+  
+  const deleteProject = (project: IProject) => {
+    setSelectedProject(project);
+    setDeletePopUp(true);
+  };
+
+  const closeDeletePopup = () => {
+    setDeletePopUp(false);
+    setSelectedProject(null);
+  };
 
   return (
     <aside
@@ -42,7 +56,6 @@ const SideBar2: React.FC<SideBar2Props> = ({ projectList }) => {
             <li key={project._id}>
               <div className='bg-gray-800 px-1 py-2 rounded-lg flex items-center justify-between hover:bg-gray-900 transition duration-200'>
                 <span className='flex items-center'>
-                  {/* when you click we store the id of the project, and it will show the Groups component */}
                   <span
                     className={`p-[2px] mr-1 hover:bg-slate-400 rounded-lg transition-transform duration-100 ${expandedProjectId === project._id ? 'rotate-90' : ''
                       }`}
@@ -56,7 +69,11 @@ const SideBar2: React.FC<SideBar2Props> = ({ projectList }) => {
                 </span>
                 <span className='flex items-center'>
                   <p className='p-[2px] mr-1 hover:bg-slate-400 rounded-lg transition duration-300'><LiaEdit /></p>
-                  <p className='p-[2px] mr-1 hover:bg-slate-400 rounded-lg transition duration-300'><RiDeleteBin7Line /></p>
+                  <p className='p-[2px] mr-1 hover:bg-slate-400 rounded-lg transition duration-300'>
+                    <RiDeleteBin7Line 
+                      onClick={() => deleteProject(project)}
+                    />
+                  </p>
                 </span>
               </div>
               {expandedProjectId === project._id && <Groups projectId={project._id} />}
@@ -75,8 +92,12 @@ const SideBar2: React.FC<SideBar2Props> = ({ projectList }) => {
           setIsPopupOpen(false);
         }}
       />
+
+      {deletePopUp && selectedProject && (
+        <DeleteProject selectedProject={selectedProject} onClose={closeDeletePopup} />
+      )}
     </aside>
   );
-}
+};
 
 export default SideBar2;
