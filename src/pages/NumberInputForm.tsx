@@ -54,8 +54,15 @@ const NumberInputForm: React.FC = () => {
 
   };
 
-  const handleResend = () => {
-    alert('Resent');
+  const handleResend = async () => {
+    try {
+      const response = await axios.post(`${BASEURL}otpService`, { email }, { withCredentials: true }); 
+      if (response.data.isSuccessful) {
+        navigate(`/otp/${email}`); 
+      }
+    } catch (err) {
+      errorFromServer("Failed to send code. Please try again")
+    }
   };
 
   return (

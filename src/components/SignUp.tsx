@@ -23,7 +23,7 @@ export default function SignUp({ handleSwitch }: Prop) {
     return (
         <div>
             <div>
-                <h2 className="mt-3 text-center text-3xl font-extrabold text-gray-900">Create your account</h2>
+                <h2 className="mt-3 text-center text-3xl font-extrabold dark:text-white text-gray-900">Create your account</h2>
             </div>
             <form className="mt-8 space-y-6" onSubmit={handleSignUp}>
                 <div className="rounded-md shadow-sm space-y-2">

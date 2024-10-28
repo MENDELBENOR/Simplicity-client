@@ -27,6 +27,7 @@ export default function UseProjects() {
         }
     }
 
+    //update project
     const updateProjects = async (updateProject: NewProject) => {
         try {
             const response = await axios.post(`${BASEURL}updateProject`, updateProject, { withCredentials: true });
@@ -39,19 +40,38 @@ export default function UseProjects() {
         }
     }
 
+
+    //get all projects
     const getAllProjects = async (setProjectList: React.Dispatch<React.SetStateAction<IProject[]>>) => {
         try {
             const response = await axios.get(`${BASEURL}getAllProjects`, { withCredentials: true });
-            if (response.data.isSuccessful)
-                setProjectList(response.data.data);
+            if (response.data.isSuccessful) {
+                setProjectList(response.data.data)
+            }
         } catch (err) {
-            if (axios.isAxiosError(err))
+            if (axios.isAxiosError(err)) {
                 errorFromServer(err.response?.data.displayMessage)
+            }
             setProjectList([]);
         }
     }
 
-    return { createProject, updateProjects, getAllProjects }
+    //delete project
+    const deletProject = async (projectId:string) => {
+        try {
+            const response = await axios.post(`${BASEURL}deleteProject`, {projectId}, { withCredentials: true });
+            if (response.data.isSuccessful) {
+                successFromServer(response.data.displayMessage)
+              
+              }
+            } catch (err) {
+              if (axios.isAxiosError(err))
+                errorFromServer(err.response?.data.displayMessage);
+            }
+        }
+
+
+    return { createProject, updateProjects, getAllProjects, deletProject }
 }
 
 

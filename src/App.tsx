@@ -11,6 +11,7 @@ import { initialUser } from './redux/slices/userSlice';
 import NumberInputForm from './pages/NumberInputForm';
 import SendEmailOtp from './components/SendEmailOtp';
 import TaskPage from './pages/TaskPage';
+import AboutUs from './pages/AboutUs';
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -29,9 +30,8 @@ function App() {
         <Route element={<Layout />}>
           <Route path='/users' element={<MainContent />} />
           <Route path='/task/:id' element={<TaskPage />} />
-          <Route path='/about' element={<div>About Page</div>} />
+          <Route path='/about' element={<AboutUs />} />
           <Route path='/profile' element={<div>Profile Page</div>} />
-          <Route path='/dev' element={<div>Dev Page</div>} />
         </Route>
       </Routes>
     </BrowserRouter>
