@@ -9,6 +9,7 @@ import { initialUsers } from "../redux/slices/usersSlice";
 import { useSelector } from "react-redux";
 
 export default function MainContent() {
+
     const dispatch: AppDispatch = useDispatch();
     const users = useSelector((state: RootState) => state.users.users);
 
@@ -24,7 +25,7 @@ export default function MainContent() {
             <div className="flex w-[80%] justify-end p-4 text-2xl font-bold text-gray-600 dark:text-white">{users.length} users active</div>
             <div className="w-[80%] flex items-center justify-between">
                 <CreateUser />
-                <div className="flex space-x-4 ml-2"><ButtonExport /><Search /></div>
+                <div className="flex space-x-4 ml-2"><ButtonExport rout='/api/export' name={'Users'}/><Search /></div>
             </div>
             <Table users={users} />
         </div>
