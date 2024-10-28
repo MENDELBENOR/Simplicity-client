@@ -89,7 +89,7 @@ export default function UseUsers() {
         errorFromServer(err.response?.data.displayMessage)
     }
   }
-  //delete User
+  // Delete User //
   const deleteUser = async (email: string) => {
     try {
       const response = await axios.delete(`${BASEURL}deleteUser/${email}`, { withCredentials: true });
@@ -104,7 +104,7 @@ export default function UseUsers() {
   };
 
 
-  //logout
+  // Logout //
   const logout = async (): Promise<void> => {
     try {
       const response = await axios.post(`${BASEURL}logout`, {}, { withCredentials: true });

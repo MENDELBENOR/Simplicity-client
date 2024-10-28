@@ -50,8 +50,22 @@ export default function useGroup() {
             }
         }
     }
+    // Delete group //
+    const deleteGroup = async (name: string) => {
+        try {
+            const response = await axios.delete(`${BASEURL}deleteGroup/${name}`, { withCredentials: true });
+            if (response.data.isSuccessful) {
+                successFromServer(response.data.displayMessage)
 
-    return { getGroupsByProject, updateGroup, createGroup }
+            }
+        } catch (err) {
+            if (axios.isAxiosError(err))
+                errorFromServer(err.response?.data.displayMessage);
+        }
+    }
+
+
+    return { getGroupsByProject, updateGroup, createGroup, deleteGroup }
 }
 
 

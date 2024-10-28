@@ -5,16 +5,18 @@ import { motion } from "framer-motion";
 import SingleGroup from "./SingleGroup";
 import UpdateGroup from "./UpdateGroup";
 import CreateGrop from "./CreateGrop";
+import DeleteGroup from "./DeleteGroup";
 
 type Props = {
     projectId: string;
 }
 
 export default function Groups({ projectId }: Props) {
-    const { getGroupsByProject, updateGroup } = useGroup(); // יש לוודא שה-import של updateGroup הוא מה-hook
+    const { getGroupsByProject, updateGroup, deleteGroup } = useGroup(); // הוספת deleteGroup מה-hook
     const [groups, setGroups] = useState<IGroup[]>([]);
     const [isUpdatePopupOpen, setUpdatePopupOpen] = useState(false);
     const [isCreateGroupPopupOpen, setCreateGroupPopupOpen] = useState(false);
+    const [isDeletePopupOpen, setDeletePopupOpen] = useState(false);
 
     const [selectedGroup, setSelectedGroup] = useState<IGroup | null>(null);
 
@@ -29,16 +31,32 @@ export default function Groups({ projectId }: Props) {
     const handleEditGroup = (groupId: string) => {
         const groupToEdit = groups.find(group => group._id === groupId);
         if (groupToEdit) {
-            setSelectedGroup(groupToEdit); // שמור את הקבוצה שנבחרה
-            setUpdatePopupOpen(true); // פתח את הפופ-אפ
+            setSelectedGroup(groupToEdit); // שמירת הקבוצה שנבחרה
+            setUpdatePopupOpen(true); // פתיחת פופ-אפ עדכון
+        }
+    };
+
+    const handleDeleteGroup = (groupId: string) => {
+        const groupToDelete = groups.find(group => group._id === groupId);
+        if (groupToDelete) {
+            setSelectedGroup(groupToDelete); // שמירת הקבוצה שנבחרה למחיקה
+            setDeletePopupOpen(true); // פתיחת פופ-אפ מחיקה
         }
     };
 
     const handleUpdateGroup = async (updatedGroup: UpdateGroupType) => {
         await updateGroup(updatedGroup); // קריאה לעדכון הקבוצה
-        setUpdatePopupOpen(false); // סגור את הפופ-אפ
-        // רענן את רשימת הקבוצות אם יש צורך
-        await getGroupsByProject(setGroups, projectId); // עדכון קבוצות לאחר העדכון
+        setUpdatePopupOpen(false); // סגירת הפופ-אפ
+        await getGroupsByProject(setGroups, projectId); // רענון הקבוצות לאחר העדכון
+    };
+
+    const handleConfirmDeleteGroup = async () => {
+        if (selectedGroup) {
+            await deleteGroup(selectedGroup._id); // קריאה למחיקת הקבוצה
+            setDeletePopupOpen(false); // סגירת הפופ-אפ
+            setSelectedGroup(null); // איפוס הקבוצה שנבחרה
+            await getGroupsByProject(setGroups, projectId); // רענון הקבוצות לאחר המחיקה
+        }
     };
 
     return (
@@ -54,7 +72,7 @@ export default function Groups({ projectId }: Props) {
                         <SingleGroup
                             group={group}
                             onEdit={() => handleEditGroup(group._id)}
-                        // onDelete={() => handleDeleteGroup(group._id)} 
+                            onDelete={() => handleDeleteGroup(group._id)} // פתיחת פופ-אפ המחיקה
                         />
                     </motion.div>
                 ))
@@ -83,9 +101,15 @@ export default function Groups({ projectId }: Props) {
             {isCreateGroupPopupOpen && (
                 <CreateGrop
                     setCreateGroupPopupOpen={setCreateGroupPopupOpen}
-                    projectId={projectId} />
-            )
-            }
+                    projectId={projectId}
+                />
+            )}
+            {isDeletePopupOpen && selectedGroup && (
+                <DeleteGroup
+                    selectedGroup={selectedGroup}
+                    onClose={() => setDeletePopupOpen(false)} // סגירת הפופ-אפ
+                />
+            )}
         </div>
     );
 }
