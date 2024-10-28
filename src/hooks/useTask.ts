@@ -75,9 +75,14 @@ export default function useTask() {
                 successFromServer(response.data.displayMessage);
                 if (response.data.data) {
                     setUsers(prevUsers => {
-                        const tempUsers = [...prevUsers!];
-                        tempUsers.push(response.data.data);
-                        return tempUsers;
+                        if (!prevUsers) {
+                            return [response.data.data];
+                        }
+                        else {
+                            const tempUsers = [...prevUsers!];
+                            tempUsers.push(response.data.data);
+                            return tempUsers;
+                        }
                     });
                     return;
                 }
