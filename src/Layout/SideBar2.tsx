@@ -8,23 +8,27 @@ import { LiaEdit } from "react-icons/lia";
 import { RiDeleteBin7Line } from "react-icons/ri";
 import Groups from '../components/Groups';
 import DeleteProject from '../components/DeleteProject';
+import UpdateProjects from '../components/UpdateProjects';
 
 interface SideBar2Props {
   projectList: IProject[];
+  viewProjects: boolean
 }
 
-const SideBar2: React.FC<SideBar2Props> = ({ projectList }) => {
+const SideBar2: React.FC<SideBar2Props> = ({ projectList, viewProjects }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [expandedProjectId, setExpandedProjectId] = useState<string | null>(null);
   const [deletePopUp, setDeletePopUp] = useState(false);
   const [selectedProject, setSelectedProject] = useState<IProject | null>(null);
+  const [popUpdate, setPopUpdate] = useState(false);
+  const [data, setData] = useState(projectList[0]);
 
   const { createProject } = UseProjects();
 
   const handleToggleGroup = (projectId: string) => {
     setExpandedProjectId(prevId => prevId === projectId ? null : projectId);
   };
-  
+
   const deleteProject = (project: IProject) => {
     setSelectedProject(project);
     setDeletePopUp(true);
@@ -35,9 +39,16 @@ const SideBar2: React.FC<SideBar2Props> = ({ projectList }) => {
     setSelectedProject(null);
   };
 
+  const handleUpdateProject = (project: IProject) => {
+    setPopUpdate(true);
+    setData(project);
+
+  }
+
   return (
     <aside
-      className="fixed top-12 right-[150px] w-[200px] h-full bg-gray-700 text-white p-3 z-50 transform transition-transform duration-300 ease-in-out"
+      className={`fixed top-12 -right-[300px] w-[250px] h-full bg-gray-700 text-white p-3 z-50 transform transition-transform duration-500 ease-in-out ${viewProjects ? 'translate-x-[-450px]' : ''
+        }`}
       style={{ zIndex: 999 }}
     >
       <div className='flex justify-center items-center mb-4'>
@@ -53,7 +64,7 @@ const SideBar2: React.FC<SideBar2Props> = ({ projectList }) => {
       <ul className='space-y-2'>
         {projectList.length > 0 ? (
           projectList.map((project) => (
-            <li key={project._id}>
+            <li key={project._id} >
               <div className='bg-gray-800 px-1 py-2 rounded-lg flex items-center justify-between hover:bg-gray-900 transition duration-200'>
                 <span className='flex items-center'>
                   <span
@@ -68,9 +79,9 @@ const SideBar2: React.FC<SideBar2Props> = ({ projectList }) => {
                   {project.name}
                 </span>
                 <span className='flex items-center'>
-                  <p className='p-[2px] mr-1 hover:bg-slate-400 rounded-lg transition duration-300'><LiaEdit /></p>
+                  <p className='p-[2px] mr-1 hover:bg-slate-400 rounded-lg transition duration-300'><LiaEdit onClick={() => handleUpdateProject(project)} /></p>
                   <p className='p-[2px] mr-1 hover:bg-slate-400 rounded-lg transition duration-300'>
-                    <RiDeleteBin7Line 
+                    <RiDeleteBin7Line
                       onClick={() => deleteProject(project)}
                     />
                   </p>
@@ -96,6 +107,7 @@ const SideBar2: React.FC<SideBar2Props> = ({ projectList }) => {
       {deletePopUp && selectedProject && (
         <DeleteProject selectedProject={selectedProject} onClose={closeDeletePopup} />
       )}
+      {popUpdate && (<UpdateProjects setPopUpdate={setPopUpdate} data={data} />)}
     </aside>
   );
 };

@@ -73,3 +73,9 @@ export interface ITask {
     duration: number;
     groupId: string;
 }
+
+export interface ButtonExportProps {
+    rout: string;
+    _id?: string;
+    name: string;
+}

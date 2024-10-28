@@ -6,6 +6,7 @@ import { initialTasks } from "../redux/slices/taskSlice";
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from "../redux/store";
 import CreateTask from "../components/CreateTask";
+import ButtonExport from "../components/ButtonExport";
 
 export default function TaskPage() {
     const dispatch = useDispatch<AppDispatch>();
@@ -27,6 +28,7 @@ export default function TaskPage() {
                     onClick={() => {
                         setPopCreateTask(!popCreateTask);
                     }}><HiPlusSm /> Add task</button>
+                {tasks.length > 0 && <div className="flex space-x-4 ml-2"><ButtonExport rout='/task/exportTaskList' _id={id} name={'Tasks'} /></div>}
             </div>
 
             {tasks.length > 0 && <TableTask tasks={tasks} />}

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { IProject } from '../utils/types';
 import InputField from './InputField';
 import UseProjects from '../hooks/UseProjects';
+import ReactDOM from 'react-dom';
 
 type Prop = {
     data: IProject,
@@ -16,7 +17,7 @@ const UpdateProjects = ({data, setPopUpdate}:Prop) => {
         description: data.description,
         icon: data.icon
     });
-
+        
     const valid = (text: string) => {
         return text.length > 1 ;
     }
@@ -34,10 +35,11 @@ const UpdateProjects = ({data, setPopUpdate}:Prop) => {
     }
 
     const handleSubmit = ()=> {
-        updateProjects(project)
+        updateProjects(project);
+        setPopUpdate(false);
     }
 
-  return (
+  return ReactDOM.createPortal(
     <div className="flex items-center justify-center min-h-screen w-full bg-black bg-opacity-50 p-4 fixed top-1/2 left-1/2 transform -translate-x-[50%] -translate-y-[50%]">
     <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md border border-gray-300 relative">
       <div
@@ -57,9 +59,9 @@ const UpdateProjects = ({data, setPopUpdate}:Prop) => {
 
       <h1 className="text-2xl font-semibold text-center text-gray-800 mb-5">Update Project</h1>
 
-      <div className="mb-4">
+      <div className="mb-4 text-black">
         <InputField
-          id="Project name"
+          id="Projectname"
           label="Project name"
           type="text"
           value={project.name}
@@ -69,9 +71,9 @@ const UpdateProjects = ({data, setPopUpdate}:Prop) => {
         />
       </div>
 
-      <div className="mb-4">
+      <div className="mb-4  text-black">
         <InputField
-          id="description"
+          id="description111"
           label="description"
           type="text"
           value={project.description}
@@ -81,14 +83,14 @@ const UpdateProjects = ({data, setPopUpdate}:Prop) => {
         />
       </div>
 
-      <div className="mb-4">
+      <div className="mb-4  text-black">
         <InputField
-          id="icon"
+          id="icon111"
           label="icon"
           type="text"
           value={project.icon}
           placeholder="icon"
-          isValid={()=> true}
+          isValid={()=>true}
           onChange={handleChangeIcon}
         />
       </div>
@@ -101,8 +103,9 @@ const UpdateProjects = ({data, setPopUpdate}:Prop) => {
       </button>
     </form>
 
-  </div>
-  )
+  </div>,
+  document.body
+  );
 }
 
 export default UpdateProjects

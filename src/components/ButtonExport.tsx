@@ -1,24 +1,26 @@
 import axios from 'axios';
 import { saveAs } from 'file-saver';
 import { Buffer } from 'buffer';
+import {ButtonExportProps} from '../utils/types';
 
-const ButtonExport: React.FC = () => {
+
+
+const ButtonExport: React.FC<ButtonExportProps> = ({ rout, _id, name }) => {
   const handleExport = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/api/export', {withCredentials:true});
+      
+      const data = _id ? { _id } : {}; // הכנת גוף הבקשה
+      const response = await axios.post(`http://localhost:3001${rout}`, data, { withCredentials: true });
       console.log(response);
       
-      
-      // בדיקה אם התגובה הייתה מוצלחת
       if (response.status !== 200 || !response.data.isSuccessful) {
         throw new Error('Network response was not ok');
       }
 
-      // שמירת הקובץ בעזרת file-saver
       const fileBuffer = Buffer.from(response.data.data, 'base64');
       const blob = new Blob([fileBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-      saveAs(blob, 'data.xlsx');
-
+      saveAs(blob, `${name}.xlsx`);
+      
     } catch (error) {
       console.error('Error exporting data:', error);
     }

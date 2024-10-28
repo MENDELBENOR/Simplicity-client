@@ -10,6 +10,8 @@ import useTask from "../hooks/useTask";
 import { setTasks } from "../redux/slices/taskSlice";
 import { useDispatch } from "react-redux";
 
+
+
 type Prop = {
     tasks: ITask[];
 };
