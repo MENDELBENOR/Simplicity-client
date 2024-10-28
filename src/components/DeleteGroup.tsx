@@ -8,7 +8,7 @@ interface DeleteGroupProps {
   onConfirmDelete: (groupId: string) => Promise<void>; // פונקציה למחיקה
 }
 
-const DeleteGroup: React.FC<DeleteGroupProps> = ({ selectedGroup, onClose, onConfirmDelete }) => {
+const DeleteGroup: React.FC<DeleteGroupProps> = ({ selectedGroup, onConfirmDelete, onClose }) => {
   const handleDelete = async () => {
     try {
       await onConfirmDelete(selectedGroup._id); // קריאה למחיקה דרך הפונקציה המועברת כ-Callback

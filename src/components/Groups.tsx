@@ -4,7 +4,7 @@ import useGroup from "../hooks/useGroup";
 import { motion } from "framer-motion";
 import SingleGroup from "./SingleGroup";
 import UpdateGroup from "./UpdateGroup";
-import CreateGroup from "./CreateGrop"; 
+import CreateGroup from "./CreateGrop";
 import DeleteGroup from "./DeleteGroup";
 
 type Props = {
@@ -83,7 +83,7 @@ export default function Groups({ projectId }: Props) {
                 <div className="text-gray-500 text-center py-4">אין קבוצות זמינות.</div>
             )}
             <div className='flex justify-center items-center mb-4 mt-2'>
-                <div className='text-lg font-bold'>הוסף קבוצה</div>
+                <div className='text-lg font-bold'>Add group</div>
                 <button
                     onClick={() => setCreateGroupPopupOpen(true)}
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold ml-2 py-1 px-2 rounded transition transform duration-300"
@@ -108,8 +108,8 @@ export default function Groups({ projectId }: Props) {
             {isDeletePopupOpen && selectedGroup && (
                 <DeleteGroup
                     selectedGroup={selectedGroup}
-                    onClose={() => setDeletePopupOpen(false)}
                     onConfirmDelete={handleConfirmDeleteGroup}
+                    onClose={() => setDeletePopupOpen(false)}
                 />
             )}
         </div>
