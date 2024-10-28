@@ -5,6 +5,7 @@ import UseUsers from '../hooks/UseUsers';
 import UseProjects from '../hooks/UseProjects';
 import { IProject } from '../utils/types';
 import SideBar2 from './SideBar2';
+import logoImg from '../assets/logoSimplicity.webp'
 
 interface SideProps {
   isOpen: boolean;
@@ -45,12 +46,12 @@ const Side: React.FC<SideProps> = ({ isOpen }) => {
         style={{ zIndex: 1000 }}
       >
         {/* לוגו */}
-        <div className='relative flex justify-center items-center mb-6 mt-1'>
-          <div className='absolute text-black text-sm top-[33px] font-bold'>
-            Simplicity
-          </div>
-          <img src="/images/M.png" alt="Image" className='w-28' />
-        </div>
+        <NavLink to="/about" className='relative flex justify-center items-center mb-6 mt-1'>
+          <img
+            src={logoImg}
+            alt="Image"
+            className='w-28 rounded-full' />
+        </NavLink>
 
         {/* קישורים בפריסה עליונה */}
         <div className='flex flex-col items-center space-y-4 mt-4'>
@@ -90,7 +91,7 @@ const Side: React.FC<SideProps> = ({ isOpen }) => {
       </aside>
 
       {/* תפריט צד נוסף להציג את רשימת הפרויקטים */}
-      {viewProjects && <SideBar2 projectList={projectList} />}
+      {isOpen && <SideBar2 projectList={projectList} viewProjects={viewProjects} />}
     </>
 
   );
