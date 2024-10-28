@@ -9,6 +9,9 @@ import { CiEdit } from "react-icons/ci";
 import useTask from "../hooks/useTask";
 import { setTasks } from "../redux/slices/taskSlice";
 import { useDispatch } from "react-redux";
+import ButtonExport  from './ButtonExport';
+
+
 
 type Prop = {
     tasks: ITask[];
@@ -17,6 +20,7 @@ type Prop = {
 const statusOptions = ["TO DO", "IN PROGRESS", "COMPLETE"];
 
 export default function TableTask({ tasks }: Prop) {
+    const { groupId } = tasks[0];
     const dispatch = useDispatch();
     const { updateTaskGeneric, deleteTask } = useTask();
     const [activePopup, setActivePopup] = useState<string | null>(null);
@@ -152,6 +156,7 @@ export default function TableTask({ tasks }: Prop) {
 
     return (
         <div className="w-[90%] overflow-x-auto mt-2">
+                     <div className="flex space-x-4 ml-2"><ButtonExport rout='/task/exportTaskList' _id={groupId} name={'Tasks'}/></div>
             <table className="min-w-[400px] w-[99%] sm:w-[90%]  border-spacing-y-2 text-[15px] overflow-x-auto">
                 <thead>
                     <tr className="bg-white dark:bg-gray-800 dark:text-white border-b-[1px] text-[15px] text-left text-gray-400 font-extralight">
