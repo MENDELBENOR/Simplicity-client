@@ -8,6 +8,7 @@ import { LiaEdit } from "react-icons/lia";
 import { RiDeleteBin7Line } from "react-icons/ri";
 import Groups from '../components/Groups';
 import DeleteProject from '../components/DeleteProject';
+import UpdateProjects from '../components/UpdateProjects';
 
 interface SideBar2Props {
   projectList: IProject[];
@@ -18,6 +19,8 @@ const SideBar2: React.FC<SideBar2Props> = ({ projectList }) => {
   const [expandedProjectId, setExpandedProjectId] = useState<string | null>(null);
   const [deletePopUp, setDeletePopUp] = useState(false);
   const [selectedProject, setSelectedProject] = useState<IProject | null>(null);
+  const [popUpdate, setPopUpdate] = useState(false);
+  const [data, setData] = useState(projectList[0]);
 
   const { createProject } = UseProjects();
 
@@ -34,6 +37,12 @@ const SideBar2: React.FC<SideBar2Props> = ({ projectList }) => {
     setDeletePopUp(false);
     setSelectedProject(null);
   };
+
+  const handleUpdateProject = (project: IProject)=>{
+    setPopUpdate(true);
+    setData(project);
+
+  }
 
   return (
     <aside
@@ -68,7 +77,7 @@ const SideBar2: React.FC<SideBar2Props> = ({ projectList }) => {
                   {project.name}
                 </span>
                 <span className='flex items-center'>
-                  <p className='p-[2px] mr-1 hover:bg-slate-400 rounded-lg transition duration-300'><LiaEdit /></p>
+                  <p className='p-[2px] mr-1 hover:bg-slate-400 rounded-lg transition duration-300'><LiaEdit onClick={()=> handleUpdateProject(project)} /></p>
                   <p className='p-[2px] mr-1 hover:bg-slate-400 rounded-lg transition duration-300'>
                     <RiDeleteBin7Line 
                       onClick={() => deleteProject(project)}
@@ -96,6 +105,7 @@ const SideBar2: React.FC<SideBar2Props> = ({ projectList }) => {
       {deletePopUp && selectedProject && (
         <DeleteProject selectedProject={selectedProject} onClose={closeDeletePopup} />
       )}
+      {popUpdate && (<UpdateProjects setPopUpdate={setPopUpdate} data={data}/>)}
     </aside>
   );
 };
