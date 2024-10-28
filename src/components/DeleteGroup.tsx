@@ -1,24 +1,21 @@
 import React from 'react';
 import { IGroup } from '../utils/types';
-import useGroup from '../hooks/useGroup';
 import ReactDOM from 'react-dom';
 
 interface DeleteGroupProps {
   selectedGroup: IGroup;
   onClose: () => void;
+  onConfirmDelete: (groupId: string) => Promise<void>; // פונקציה למחיקה
 }
 
-const DeleteGroup: React.FC<DeleteGroupProps> = ({ selectedGroup, onClose }) => {
-  const { _id } = selectedGroup;
-  const { deleteGroup } = useGroup();  // שימוש נכון ב-hook
-
+const DeleteGroup: React.FC<DeleteGroupProps> = ({ selectedGroup, onClose, onConfirmDelete }) => {
   const handleDelete = async () => {
     try {
-      await deleteGroup(_id);  // ניסיון למחוק את הקבוצה
+      await onConfirmDelete(selectedGroup._id); // קריאה למחיקה דרך הפונקציה המועברת כ-Callback
     } catch (error) {
       console.error("Error deleting group:", error);
     } finally {
-      onClose();  // סגירת הפופ-אפ בכל מקרה
+      onClose();  // סגירת הפופ-אפ
     }
   };
 
@@ -50,7 +47,7 @@ const DeleteGroup: React.FC<DeleteGroupProps> = ({ selectedGroup, onClose }) => 
             Delete
           </button>
           <button
-            onClick={onClose}  // סגירה בלחיצה על cancel
+            onClick={onClose}
             className="w-full py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold rounded-md hover:from-blue-600 hover:to-purple-600 transition duration-200"
           >
             Cancel

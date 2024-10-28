@@ -50,19 +50,19 @@ export default function useGroup() {
             }
         }
     }
-    // Delete group //
-    const deleteGroup = async (name: string) => {
-        try {
-            const response = await axios.delete(`${BASEURL}deleteGroup/${name}`, { withCredentials: true });
-            if (response.data.isSuccessful) {
-                successFromServer(response.data.displayMessage)
-
-            }
-        } catch (err) {
-            if (axios.isAxiosError(err))
-                errorFromServer(err.response?.data.displayMessage);
+   // Delete group //
+   const deleteGroup = async (_id: string) => {
+    try {
+        const response = await axios.delete(`${BASEURL}deleteGroup/${_id}`, { withCredentials: true });
+        if (response.data.isSuccessful) {
+            successFromServer(response.data.displayMessage);
+        }
+    } catch (err) {
+        if (axios.isAxiosError(err)) {
+            errorFromServer(err.response?.data.displayMessage || "Failed to delete group.");
         }
     }
+}
 
 
     return { getGroupsByProject, updateGroup, createGroup, deleteGroup }
