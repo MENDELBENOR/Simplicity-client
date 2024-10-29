@@ -37,7 +37,7 @@ export default function useGroup() {
             }
         }
     }
-
+    // Create Group //
     const createGroup = async (newGroup: groupType) => {
         try {
             const response = await axios.post(`${BASEURL}createGroup`, newGroup, { withCredentials: true });
@@ -51,7 +51,23 @@ export default function useGroup() {
         }
     }
 
-    return { getGroupsByProject, updateGroup, createGroup }
+    // Delete group //
+    const deleteGroup = async (_id: string) => {
+        try {
+            const response = await axios.delete(`${BASEURL}deleteGroup/${_id}`, { withCredentials: true });
+            console.log(100);
+            if (response.data.isSuccessful) {
+                successFromServer(response.data.displayMessage);
+            }
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                errorFromServer(err.response?.data.displayMessage);
+            }
+        }
+    }
+
+
+    return { getGroupsByProject, updateGroup, createGroup, deleteGroup }
 }
 
 
