@@ -86,7 +86,7 @@ export default function TableTask({ tasks }: Prop) {
         onSave: (taskId: string) => void,
         inputType: string = "text"
     ) => (
-        <div className="absolute top-0 left-1/2 z-10 bg-white dark:text-black border rounded-md shadow-lg p-2 transform -translate-x-[50%]">
+        <div className={`absolute top-0 left-1/2 z-10 bg-white dark:text-black border rounded-md shadow-lg p-2 transform -translate-x-[50%] ${inputType !== 'number' && 'w-[150px]'}`}>
             <input
                 type={inputType}
                 value={editValue}
@@ -155,7 +155,7 @@ export default function TableTask({ tasks }: Prop) {
 
     return (
         <div className="w-[90%] overflow-x-auto mt-2">
-            <table className="min-w-[400px] w-[99%] sm:w-[90%]  border-spacing-y-2 text-[15px] overflow-x-auto">
+            <table className="min-w-[400px] w-[99%] sm:w-[90%] overflow-x-auto border-spacing-y-2 text-[15px]">
                 <thead>
                     <tr className="bg-white dark:bg-gray-800 dark:text-white border-b-[1px] text-[15px] text-left text-gray-400 font-extralight">
                         <th className="p-2">Name</th>
@@ -165,7 +165,7 @@ export default function TableTask({ tasks }: Prop) {
                         <th className="p-2"></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className="">
                     {tasks.map((task) => (
                         <tr
                             key={task._id}
@@ -178,6 +178,8 @@ export default function TableTask({ tasks }: Prop) {
                             className="text-[13px] transition-transform duration-300 ease-in-out border-b-[1px] bg-white hover:bg-gray-100 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
                         >
                             <td className="px-2 min-w-[200px] py-2 flex items-center space-x-2 font-s relative">
+                                {activePopup === task._id + "_name" &&
+                                    renderEditPopup(task._id, task.name, handleNameChange, "text")}
                                 <RiDraggable className="cursor-move" />
                                 <span className="bg-transparent">
                                     {task.status === "COMPLETE" ? (
@@ -205,8 +207,6 @@ export default function TableTask({ tasks }: Prop) {
 
                                     <CiEdit className=" dark:text-black" title="Rename" />
                                 </span>
-                                {activePopup === task._id + "_name" &&
-                                    renderEditPopup(task._id, task.name, handleNameChange, "text")}
                             </td>
 
                             <td className="px-2 py-1 relative min-w-[150px]">

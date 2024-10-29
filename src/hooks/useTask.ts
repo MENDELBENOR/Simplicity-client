@@ -119,16 +119,14 @@ export default function useTask() {
         } catch (err) {
             if (axios.isAxiosError(err))
                 console.log(err);
-                
+
         }
     };
 
     // serach tasks
     const searchTask = async (text: string, id: string) => {
-
         try {
             const response = await axios.get(`${BASEURL}searchTask/${text}/${id}`, { withCredentials: true });
-
             if (response.data.isSuccessful) {
                 dispatch(setTasks(response.data.data));
             }

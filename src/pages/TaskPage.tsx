@@ -18,13 +18,13 @@ export default function TaskPage() {
     const [popCreateTask, setPopCreateTask] = useState<boolean>(false);
     const { searchTask } = useTask();
 
+
     useEffect(() => {
         dispatch(initialTasks(id!));
     }, [dispatch, id]);
 
     const handleNewSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         const text = e.target.value;
-
         if (text.length === 0)
             dispatch(initialTasks(id!))
         else
@@ -37,8 +37,8 @@ export default function TaskPage() {
                 {tasks.length} Tasks active
             </div>
 
-            <div className="w-[80%] flex items-center justify-start mb-4">
-                <div className="flex space-x-4">
+            <div className="w-[90%] flex items-center justify-start mb-4 space-x-2 sm:space-x-4">
+                <div className="flex">
                     {tasks.length > 0 &&
                         <ButtonExport rout='/task/exportTaskList' _id={id} name={'Tasks'} />
                     }
@@ -48,10 +48,10 @@ export default function TaskPage() {
                     placeholder="Search..."
                     onChange={handleNewSearch}
                     required
-                    className="border rounded-md p-2 ml-4 focus:outline-none focus:ring focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                    className="border rounded-md p-2 focus:outline-none focus:ring focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
                 />
                 <button
-                    className="flex items-center py-1 px-2 rounded-md border-2 bg-gray-300 hover:bg-blue-600 transition duration-300 ml-4 hover:text-white"
+                    className="flex items-center py-1 px-2 rounded-md border-2 bg-gray-300 hover:bg-blue-600 transition duration-300 hover:text-white text-[14px]  custom-text-size"
                     onClick={() => setPopCreateTask(!popCreateTask)}
                 >
                     <HiPlusSm /> Add task
@@ -60,7 +60,8 @@ export default function TaskPage() {
 
             </div>
 
-            {tasks.length > 0 ? <TableTask tasks={tasks} /> : <Loading />}
+            {tasks.length > 0 && <TableTask tasks={tasks} />}
+            {!tasks && <Loading />}
 
             {popCreateTask && <CreateTask groupId={id!} setPopCreateTask={setPopCreateTask} />}
         </div>

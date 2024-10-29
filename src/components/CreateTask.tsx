@@ -47,13 +47,13 @@ export default function CreateTask({ groupId, setPopCreateTask }: Prop) {
 
   return (
     <div className="flex items-center z-20 justify-center min-h-screen w-full bg-black bg-opacity-50 p-4 fixed top-1/2 left-1/2 transform -translate-x-[50%] -translate-y-[50%]">
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md border border-gray-300 relative">
+      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md border dark:bg-gray-800 border-gray-300 relative">
         <div
-          className="absolute top-0 right-0 m-2 p-1 rounded-full bg-red-700 text-white cursor-pointer hover:scale-105 transition-transform duration-300"
-          onClick={() => setPopCreateTask(false)}
+          className="absolute top-0 right-0 m-2 p-[1px] rounded-full text-gray-500 hover:text-gray-700 dark:hover:text-gray-200 transition transform duration-200 cursor-pointer"
+          onClick={() => { setPopCreateTask(false) }}
         >
           <svg
-            className="w-6 h-6"
+            className="w-5 h-5"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"

@@ -64,30 +64,25 @@ export default function UserOfTheTask({ taskId }: Props) {
                 ))
             )}
             {editUsersOfTask && (
-                <div className="flex max-h-[60%] items-center justify-center z-20 min-h-screen w-full bg-black bg-opacity-50 p-4 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                    <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md border border-gray-300 relative dark:bg-gray-800 dark:text-white">
-                        <button
-                            className="absolute top-0 right-0 m-2 p-1 rounded-full bg-red-700 text-white cursor-pointer"
+                <div className="flex h-[90%] sm:max-h-[60%] mt-7 items-center justify-center z-20 min-h-screen w-full bg-black bg-opacity-50 p-4 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                    <div className="bg-white px-6 py-2 rounded-lg shadow-lg w-full max-w-md border border-gray-300 relative dark:bg-gray-800 dark:text-white">
+                        <div
+                            className="absolute top-0 right-0 m-2 p-[1px] rounded-full text-gray-500 hover:text-gray-700 dark:hover:text-gray-200 transition transform duration-200 cursor-pointer"
                             onClick={(e) => {
                                 e.stopPropagation();
                                 togglePopUp();
                             }}
                         >
                             <svg
-                                className="w-6 h-6"
+                                className="w-5 h-5"
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
                             >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M6 18L18 6M6 6l12 12"
-                                />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                             </svg>
-                        </button>
+                        </div>
 
                         <h1 className="text-2xl font-semibold text-center text-gray-800 mb-5">
                             Task Users
@@ -96,21 +91,21 @@ export default function UserOfTheTask({ taskId }: Props) {
                         <div className="mb-6">
                             <h2 className="text-lg font-medium text-gray-700 mb-3">Assigned Users</h2>
                             {users && users.length > 0 ? (
-                                <div className="space-y-4">
+                                <div className="space-y-2 max-h-40 overflow-y-auto">
                                     {users.map((user) => (
                                         <div
                                             key={user._id}
-                                            className="flex items-center space-x-4 p-2 bg-gray-50 rounded-lg dark:bg-gray-800 dark:text-white border-[1px] mr-1"
+                                            className="flex items-center space-x-4 p-1 bg-gray-50 rounded-lg dark:bg-gray-800 dark:text-white border-[1px] mr-1"
                                         >
                                             <div className="flex-shrink-0">
                                                 {user.icon ? (
                                                     <img
-                                                        className="w-10 h-10 rounded-full object-cover"
+                                                        className="w-8 h-8 rounded-full object-cover"
                                                         src={user.icon}
                                                         alt={`${user.firstName} ${user.lastName}`}
                                                     />
                                                 ) : (
-                                                    <div className="w-10 h-10 rounded-full flex justify-center items-center bg-gray-200">
+                                                    <div className="w-8 h-8 rounded-full flex justify-center items-center bg-gray-200">
                                                         👤
                                                     </div>
                                                 )}
@@ -124,7 +119,7 @@ export default function UserOfTheTask({ taskId }: Props) {
                                                 </p>
                                             </div>
                                             <button
-                                                className="border-[1px] rounded-md bg-red-400 p-2 hover:bg-red-500 transition transform duration-300"
+                                                className="border-[1px] rounded-md bg-red-400 p-1 hover:bg-red-500 transition transform duration-300"
                                                 onClick={() => {
                                                     assignTaskToUser(user._id, taskId, setUsers);
                                                     togglePopUp();
@@ -150,21 +145,21 @@ export default function UserOfTheTask({ taskId }: Props) {
                                 </div>
                             </div>
 
-                            <div className="space-y-4 max-h-60 overflow-y-auto">
+                            <div className="space-y-2 max-h-60 overflow-y-auto">
                                 {usersList?.map((user) => (
                                     <div
                                         key={user._id}
-                                        className="flex items-center space-x-4 p-2 bg-gray-50 rounded-lg dark:bg-gray-800 dark:text-white border-[1px] mr-1"
+                                        className="flex items-center space-x-4 p-1 bg-gray-50 rounded-lg dark:bg-gray-800 dark:text-white border-[1px] mr-1"
                                     >
                                         <div className="flex-shrink-0">
                                             {user.icon ? (
                                                 <img
-                                                    className="w-10 h-10 rounded-full object-cover"
+                                                    className="w-8 h-8 rounded-full object-cover"
                                                     src={user.icon}
                                                     alt={`${user.firstName} ${user.lastName}`}
                                                 />
                                             ) : (
-                                                <div className="w-10 h-10 rounded-full flex justify-center items-center bg-gray-200">
+                                                <div className="w-8 h-8 rounded-full flex justify-center items-center bg-gray-200">
                                                     👤
                                                 </div>
                                             )}
@@ -178,7 +173,7 @@ export default function UserOfTheTask({ taskId }: Props) {
                                             </p>
                                         </div>
                                         <button
-                                            className="border-[1px] rounded-md bg-green-400 p-2 hover:bg-green-500 transition transform duration-300"
+                                            className="border-[1px] rounded-md bg-green-400 py-1 px-3 hover:bg-green-500 transition transform duration-300"
                                             onClick={() => {
                                                 assignTaskToUser(user._id, taskId, setUsers);
                                                 togglePopUp();
