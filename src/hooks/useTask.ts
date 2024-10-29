@@ -2,7 +2,7 @@ import axios from 'axios';
 import { errorFromServer, successFromServer } from '../utils/toast';
 import { AppDispatch } from '../redux/store';
 import { useDispatch } from 'react-redux';
-import { addTask, removeTask, updateTask } from '../redux/slices/taskSlice';
+import { addTask, removeTask, updateTask, setTasks } from '../redux/slices/taskSlice';
 import { ITask, IUser } from '../utils/types';
 
 
@@ -118,11 +118,28 @@ export default function useTask() {
             }
         } catch (err) {
             if (axios.isAxiosError(err))
-                console.log();
+                console.log(err);
+                
         }
     };
 
-    return { createTask, updateTaskGeneric, deleteTask, assignTaskToUser, getTaskByUser, getUsersWithTask }
+    // serach tasks
+    const searchTask = async (text: string, id: string) => {
+
+        try {
+            const response = await axios.get(`${BASEURL}searchTask/${text}/${id}`, { withCredentials: true });
+
+            if (response.data.isSuccessful) {
+                dispatch(setTasks(response.data.data));
+            }
+        } catch (err) {
+            console.error("Failed to search tasks:", err);
+            dispatch(setTasks([]));
+        }
+    };
+
+
+    return { createTask, updateTaskGeneric, deleteTask, assignTaskToUser, getTaskByUser, getUsersWithTask, searchTask }
 }
 
 
