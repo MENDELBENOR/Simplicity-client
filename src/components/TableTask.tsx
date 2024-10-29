@@ -9,6 +9,7 @@ import { CiEdit } from "react-icons/ci";
 import useTask from "../hooks/useTask";
 import { setTasks } from "../redux/slices/taskSlice";
 import { useDispatch } from "react-redux";
+import UserOfTheTask from "./UserOfTheTask";
 
 
 
@@ -31,7 +32,7 @@ export default function TableTask({ tasks }: Prop) {
     }, [activePopup]);
 
     const handleStatusChange = (taskId: string, newStatus: string) => {
-        setActivePopup(null); // Close popup after saving
+        setActivePopup(null);
 
         const taskToUpdate = {
             taskId: taskId,
@@ -176,7 +177,7 @@ export default function TableTask({ tasks }: Prop) {
                             onDrop={(e) => handleDrop(e, task)}
                             className="text-[13px] transition-transform duration-300 ease-in-out border-b-[1px] bg-white hover:bg-gray-100 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
                         >
-                            <td className="px-2 py-2 flex items-center space-x-2 font-s relative">
+                            <td className="px-2 min-w-[200px] py-2 flex items-center space-x-2 font-s relative">
                                 <RiDraggable className="cursor-move" />
                                 <span className="bg-transparent">
                                     {task.status === "COMPLETE" ? (
@@ -193,6 +194,7 @@ export default function TableTask({ tasks }: Prop) {
                                     )}
                                 </span>
                                 <span className="w-full flex">{task.name}</span>
+                                <UserOfTheTask taskId={task._id} />
                                 <span
                                     className="flex justify-end border-[1px] p-1 rounded-md bg-white cursor-pointer dark:text-white"
                                     onClick={() => {
@@ -200,15 +202,16 @@ export default function TableTask({ tasks }: Prop) {
                                         setEditValue(task.name);
                                     }}
                                 >
+
                                     <CiEdit className=" dark:text-black" title="Rename" />
                                 </span>
                                 {activePopup === task._id + "_name" &&
                                     renderEditPopup(task._id, task.name, handleNameChange, "text")}
                             </td>
 
-                            <td className="px-2 py-1 relative">
+                            <td className="px-2 py-1 relative min-w-[150px]">
                                 {activePopup === task._id + "_status" ? (
-                                    <div className="absolute z-10 bg-white border rounded-md shadow-lg">
+                                    <div className="bg-white border rounded-md shadow-lg">
                                         {statusOptions.map((status) => (
                                             <div
                                                 key={status}
@@ -255,7 +258,7 @@ export default function TableTask({ tasks }: Prop) {
                                     renderEditPopup(task._id, task.duration.toString(), handleDurationChange, "number")}
                             </td>
 
-                            <td className="px-2 py-1 relative">
+                            <td className="px-2 py-1 relative min-w-[150px]">
                                 <span
                                     title="Edit"
                                     onClick={() => {
@@ -282,6 +285,7 @@ export default function TableTask({ tasks }: Prop) {
                     ))}
                 </tbody>
             </table>
+            { }
         </div>
     );
 }
