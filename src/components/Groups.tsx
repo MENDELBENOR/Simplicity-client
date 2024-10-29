@@ -63,14 +63,14 @@ export default function Groups({ projectId }: Props) {
     };
 
     return (
-        <div>
+        <div className="ml-3">
             {groups.length > 0 ? (
                 groups.map((group, index) => (
                     <motion.div
                         key={group._id}
-                        initial={{ x: -10, opacity: 0 }}
-                        animate={{ x: 0, opacity: 1 }}
-                        transition={{ delay: 0.3 * index }}
+                        initial={{ y: -10, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ delay: 0.2 * index }}
                     >
                         <SingleGroup
                             group={group}

@@ -53,7 +53,7 @@ const Table = ({ users }: Prop) => {
 
   return (
     <div className="w-[80%] overflow-x-auto mt-2">
-      <table className="min-w-[400px] w-[99%] text-center border-separate border-spacing-y-2">
+      <table className="min-w-[400px] w-[99%] text-center border-separate border-spacing-y-1">
         <thead>
           <tr className="bg-white dark:bg-gray-600 dark:text-white">
             <th className="p-2 cursor-pointer">Icon</th>
@@ -89,24 +89,24 @@ const Table = ({ users }: Prop) => {
                 <div className="w-full flex justify-center items-center">
                   {user.icon ? (
                     <img
-                      className="w-10 h-10 rounded-full object-cover"
+                      className="w-8 h-8 rounded-full object-cover"
                       src={user.icon}
                       alt=""
                     />
                   ) : (
-                    <div className="w-10 h-10 rounded-full flex justify-center items-center object-cover bg-gray-200">
+                    <div className="w-8 h-8 rounded-full flex justify-center items-center object-cover bg-gray-200">
                       👤
                     </div>
                   )}
                 </div>
               </td>
-              <td className="p-2">{user.firstName}</td>
-              <td className="p-2">{user.lastName}</td>
-              <td className="p-2">{user.email}</td>
-              <td className="p-2">{user.phone}</td>
-              <td className="p-2 text-center">
+              <td className="py-1 px-4">{user.firstName}</td>
+              <td className="py-1 px-4">{user.lastName}</td>
+              <td className="py-1 px-4">{user.email}</td>
+              <td className="py-1 px-4">{user.phone}</td>
+              <td className="py-1 px-4 text-center">
                 <div className="flex flex-row items-center justify-center">
-                  <div className="rounded-full flex justify-center items-center object-cover hover:bg-gray-100 dark:hover:bg-black">
+                  <div className="rounded-full flex justify-center items-center object-cover hover:bg-gray-100 dark:hover:bg-black transition transform duration-200 cursor-pointer">
                     <LiaEdit
                       onClick={() => {
                         setSelectedUser(user);
@@ -115,7 +115,7 @@ const Table = ({ users }: Prop) => {
                       className="m-2"
                     />
                   </div>
-                  <div className="rounded-full flex justify-center items-center object-cover hover:bg-gray-100 dark:hover:bg-black">
+                  <div className="rounded-full flex justify-center items-center object-cover hover:bg-gray-100 dark:hover:bg-black transition transform duration-200 cursor-pointer">
                     <RiDeleteBin7Line
                       onClick={() => {
                         setSelectedUser(user);
