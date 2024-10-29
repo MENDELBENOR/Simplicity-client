@@ -56,7 +56,7 @@ const Side: React.FC<SideProps> = ({ isOpen }) => {
         {/* קישורים בפריסה עליונה */}
         <div className='flex flex-col items-center space-y-4 mt-4'>
           {/* פרויקט עם תיקייה */}
-          <div className='text-green-400 border-green-400 border-b-2 flex items-center gap-2 hover:cursor-pointer'>
+          <div className='hover:text-green-400 hover:border-green-400 border-b-2 flex items-center gap-2 hover:cursor-pointer'>
             <span onClick={handleProjectList}>Projects</span>
           </div>
 

@@ -12,7 +12,7 @@ const InputField: React.FC<InputFieldProps> = ({ id, label, type, value, placeho
 
   return (
     <div className="">
-      <label htmlFor={id} className="block text-sm font-medium text-gray-700 text-left">
+      <label htmlFor={id} className="block text-sm font-medium text-gray-700 text-left dark:text-white dark:bg-gray-800">
         {label}
       </label>
       <input
@@ -20,7 +20,7 @@ const InputField: React.FC<InputFieldProps> = ({ id, label, type, value, placeho
         id={id}
         value={value}
         placeholder={placeholder}
-        className={`block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150
+        className={`block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 dark:text-gray-800
           ${isValid(value) ? "" : "border-red-600 focus:ring-red-600"}`}
         minLength={2}
         onChange={onChange}
