@@ -93,7 +93,7 @@ const CreateUser: React.FC = () => {
             {isOpen && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
                     <motion.div
-                        className="bg-white p-6 rounded-lg shadow-lg sm:w-full w-[95%] border border-gray-300 relative dark:text-white dark:bg-gray-800 mt-10"
+                        className="bg-white p-6 rounded-lg shadow-lg sm:w-full w-[95%] max-w-md border border-gray-300 relative dark:text-white dark:bg-gray-800 mt-10"
                         initial={{ y: -100, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
                         transition={{ delay: 0.2 }}
