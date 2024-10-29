@@ -1,5 +1,5 @@
 // SideBar2.tsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NewProject, IProject } from '../utils/types';
 import CreateProject from '../pages/CreateProject';
 import UseProjects from '../hooks/UseProjects';
@@ -9,6 +9,8 @@ import { RiDeleteBin7Line } from "react-icons/ri";
 import Groups from '../components/Groups';
 import DeleteProject from '../components/DeleteProject';
 import UpdateProjects from '../components/UpdateProjects';
+//import { setProject } from "../redux/slices/projectsSlice";
+//import { useDispatch } from 'react-redux';
 
 interface SideBar2Props {
   projectList: IProject[];
@@ -22,6 +24,14 @@ const SideBar2: React.FC<SideBar2Props> = ({ projectList, viewProjects }) => {
   const [selectedProject, setSelectedProject] = useState<IProject | null>(null);
   const [popUpdate, setPopUpdate] = useState(false);
   const [data, setData] = useState(projectList[0]);
+  //const dispatch = useDispatch();
+
+  const [currentProjects, setCurrentProjects] = useState(projectList);
+
+
+  useEffect(() => {
+   setCurrentProjects(projectList);
+  }, [projectList])
 
   const { createProject } = UseProjects();
 
@@ -45,6 +55,50 @@ const SideBar2: React.FC<SideBar2Props> = ({ projectList, viewProjects }) => {
 
   }
 
+     //----------------------- drag -------------------------------
+
+     const [draggedItem, setDraggedItem] = useState<IProject | null>(null);
+
+     const handleDragStart = (e: React.DragEvent<HTMLElement>, project: IProject) => {
+         setDraggedItem(project);
+         e.currentTarget.classList.add('opacity-50');
+     };
+ 
+     const handleDragEnd = (e: React.DragEvent<HTMLElement>) => {
+         e.currentTarget.classList.remove('opacity-50');
+         setDraggedItem(null);
+     };
+ 
+     const handleDragOver = (e: React.DragEvent<HTMLElement>) => {
+         e.preventDefault();
+         const targetElement = e.currentTarget;
+         targetElement.style.borderBottom = '2px solid blue';
+     };
+ 
+     const handleDragLive = (e: React.DragEvent<HTMLElement>) => {
+         const targetElement = e.currentTarget;
+         targetElement.style.borderBottom = '1px solid #F3F4F6';
+     };
+ 
+     const handleDrop = (e: React.DragEvent<HTMLElement>, targetProject: IProject) => {
+         e.preventDefault();
+ 
+         if (!draggedItem || draggedItem._id === targetProject._id) return;
+         
+         const newProjects = [...currentProjects];
+         const draggedIndex = currentProjects.findIndex(project => project._id === draggedItem._id);
+         const targetIndex = currentProjects.findIndex(project => project._id === targetProject._id);
+ 
+         newProjects.splice(draggedIndex, 1);
+         newProjects.splice(targetIndex, 0, draggedItem);
+        
+         setCurrentProjects(newProjects);
+         //dispatch(setProject(newProjects));
+        
+         const targetElement = e.currentTarget;
+         targetElement.style.borderBottom = '1px solid #F3F4F6';
+     };
+
   return (
     <aside
       className={`fixed top-12 -right-[300px] w-[250px] h-full bg-gray-700 text-white p-3 z-50 transform transition-transform duration-500 ease-in-out ${viewProjects ? 'translate-x-[-450px]' : ''
@@ -62,9 +116,17 @@ const SideBar2: React.FC<SideBar2Props> = ({ projectList, viewProjects }) => {
       </div>
 
       <ul className='space-y-2'>
-        {projectList.length > 0 ? (
-          projectList.map((project) => (
-            <li key={project._id} >
+        {currentProjects.length > 0 ? (
+          currentProjects.map((project) => (
+            <li
+            key={project._id}
+            draggable={true}
+            onDragStart={(e) => handleDragStart(e, project)}
+            onDragEnd={handleDragEnd}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLive}
+            onDrop={(e) => handleDrop(e, project)}
+              >
               <div className='bg-gray-800 px-1 py-2 rounded-lg flex items-center justify-between hover:bg-gray-900 transition duration-200'>
                 <span className='flex items-center'>
                   <span
