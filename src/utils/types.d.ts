@@ -55,9 +55,18 @@ export type Project = {
     icon: string,
 }
 
+export interface SideProps {
+    isOpen: boolean;
+  }
+
 export type SideBar2Props = {
     projectList: Project[];
 };
+
+export interface LogoutPopupProps {
+    onConfirm: () => void;
+    onClose: () => void;
+  }
 
 export type UpdateGroupType = {
     name: string;
@@ -79,3 +88,8 @@ export interface ButtonExportProps {
     _id?: string;
     name: string;
 }
+
+export interface DeleteProjectProps {
+    selectedProject: IProject;
+    onClose: () => void;
+  }
