@@ -1,11 +1,8 @@
 // LogoutPopup.tsx
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {LogoutPopupProps} from '../utils/types';
 
-interface LogoutPopupProps {
-  onConfirm: () => void;
-  onClose: () => void;
-}
 
 const LogoutPopup: React.FC<LogoutPopupProps> = ({ onConfirm, onClose }) => {
   return ReactDOM.createPortal(
@@ -32,7 +29,7 @@ const LogoutPopup: React.FC<LogoutPopupProps> = ({ onConfirm, onClose }) => {
             onClick={onConfirm}
             className="w-full py-2 bg-gradient-to-r from-red-500 to-red-700 text-white font-semibold rounded-md hover:from-red-600 hover:to-red-800 transition duration-200"
           >
-            Confirm
+            yes
           </button>
           <button
             onClick={onClose}

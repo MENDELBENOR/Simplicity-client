@@ -1,4 +1,3 @@
-// Side.tsx
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { TbLogout } from "react-icons/tb";
@@ -10,7 +9,10 @@ import logoImg from '../assets/logoSimplicity.webp';
 import { SideProps } from '../utils/types';
 import LogoutPopup from '../components/LogoutPopUp';
 
+
+
 const Side: React.FC<SideProps> = ({ isOpen }) => {
+  
   const [projectList, setProjectList] = useState<IProject[]>([]);
   const { getAllProjects } = UseProjects();
   const [viewProjects, setViewProjects] = useState(false);

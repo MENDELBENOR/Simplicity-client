@@ -63,6 +63,11 @@ export type SideBar2Props = {
     projectList: Project[];
 };
 
+export interface LogoutPopupProps {
+    onConfirm: () => void;
+    onClose: () => void;
+  }
+
 export type UpdateGroupType = {
     name: string;
     description: string;
